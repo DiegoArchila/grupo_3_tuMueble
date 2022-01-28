@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="<%- settingGeneral.languaje.Spanish %>">
-    <!--HEAD-->
-    <%- include("partials/head.ejs") %>
+<head>
+    <meta charset="<%- settingGeneral.charset %>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- index.title %> | <%- index.name.toUpperCase() %></title>
+</head>
 <body>
-
-    <header>
-        <%- include('./partials/header')%>
-    </header>
-
-   <main>
-        <h1>Bienvenido a <%- index.name.toUpperCase() %></h1>
-   </main>
-   
-   <footer>
-        <%- include('./partials/footer')%> 
-   </footer>
-   +
+   <h1>Bienvenido a <%- index.name.toUpperCase() %></h1> 
 </body>
 </html>
