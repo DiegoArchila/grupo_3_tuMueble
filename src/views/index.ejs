@@ -1,20 +1,82 @@
 <!DOCTYPE html>
 <html lang="<%- settingGeneral.languaje.Spanish %>">
     <!--HEAD-->
-    <%- include("partials/head.ejs") %>
-<body>
+    <%- include("./partials/head.ejs") %>
+    <body>
 
-    <header>
-        <%- include('./partials/header')%>
-    </header>
+        <!--HEADER-->
+        <%- include('./partials/header.ejs')%>
 
-   <main>
+        <!-- BANNER -->
+        <%- include('./partials/banner.ejs')%>
+
+        <!--Slider-->
+        <div class="content">
+          <div class="slider-container">
+            <ul class="slider">
+              <% for(let i=0; i<productsMasComprados.length; i++) { %>
+              <li id="slide<%= i + 1 %>">
+                <div class="card">
+                  <div class="card-image">
+                    <img                                            
+                      src="<%= productsMasComprados[i].images[0].path %> "
+                      height="300px"
+                      width="300px"
+                      alt="<%= productsMasComprados[i].name %> "
+                    />
+                  </div>
+                  <div class="card-body">
+                    <div class="grid">
+                      <div class="row">
+                        <p class="title"><%= productsMasComprados[i].name %></p>
+                      </div>
+                      <div class="row">
+                        <div class="column">
+                          <div class="buttons">
+                            <button class="detalle">Ver detalle</button>
+                            <button class="agregar-carrito">
+                              Agregar al
+                              <span
+                                class="iconify"
+                                data-icon="bytesize:cart"
+                              ></span>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="cost">
+                            <p class="price">
+                              $<%=
+                              Math.round(productsMasComprados[i].priceFinal*(1-(((productsMasComprados[i].discount>0)?productsMasComprados[i].discount:0)/100)))
+                              %>
+                            </p>
+                            <% if (productsMasComprados[i].discount>0) { %>
+                            <p class="offer"><%= productsMasComprados[i].discount %> % OFF</p>
+                            <p class="price-normal">$<%= productsMasComprados[i].priceFinal %></p>
+                            <% } %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <% } %>
+            </ul>
+            <ul class="slider-menu">
+              <% for( let i = 0; i < productsMasComprados.length; i++ ) { %>
+              <li><a href="#slide<%= i + 1 %>"><%= i+1 %> </a></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>    
+        <!--Slider-->
+
+        <!--MAIN-->
         <h1>Bienvenido a <%- index.name.toUpperCase() %></h1>
-   </main>
-   
-   <footer>
-        <%- include('./partials/footer')%> 
-   </footer>
-   +
-</body>
+    
+        <!--FOOTER-->
+        <%- include('./partials/footer.ejs') %> 
+        
+    </body>
 </html>

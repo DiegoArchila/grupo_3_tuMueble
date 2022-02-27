@@ -1,56 +1,29 @@
 [
     {
+        "id":0,
         "idDni": 1082928069,
         "firstName": "Diego Alonso",
         "lastName": "Archila Torres",
         "dateBorn": "16/01/1991",
-        "gender": "M",
-        "country": "Colombia",
-        "province-state": "Antioquia",
-        "city-town": "Rionegro",
-        "address": "Cll 52 # 61-337, la falda del palo",
-        "imagen": "empty",
-        "isAdmin": true
-
-    },
-    {
-        "idDni": 2,
-        "firstName": "",
-        "lastName": " ",
-        "dateBorn": "day/month/year",
-        "gender": "",
-        "country": "",
-        "province-state": "",
-        "city-town": "",
-        "address": "",
-        "imagen": "",
-        "isAdmin": true
-
-    },
-    {
-        "idDni": 3,
-        "firstName": "",
-        "lastName": " ",
-        "dateBorn": "day/month/year",
-        "gender": "",
-        "country": "",
-        "province-state": "",
-        "city-town": "",
-        "address": "",
-        "imagen": "",
-        "isAdmin": true
-
-    },
-    {
-        "idDni": 4,
-        "firstName": "",
-        "lastName": " ",
-        "dateBorn": "day/month/year",
-        "gender": "",
-        "country": "",
-        "province-state": "",
-        "city-town": "",
-        "address": "",
+        "gender": "Hombre",
+        "email":"",
+        "phone":[
+            {
+                "id":"",
+                "type":"",
+                "number":0
+            }
+        ],
+        "pwd":"",
+        "location":[
+            {   
+                "id":0,
+                "country": "Colombia",
+                "province-state": "Antioquia",
+                "city-town": "Rionegro",
+                "address": "Cll 52 # 61-337, la falda del palo",
+            }
+        ],        
         "imagen": "",
         "isAdmin": true
 
