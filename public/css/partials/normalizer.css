@@ -8,6 +8,7 @@ html {
   font-size: 62.5%;
   font-family: var(--font-RedHatDispaly);
   background-color: var(--color-bg);
+  scroll-behavior: smooth;
 }
 
 body {

@@ -14,6 +14,7 @@
         <h1>Bienvenido a <%- index.name.toUpperCase() %></h1>
 
         <!--Menu de categorias-->
+        <!--Menu de categorias-->
         <nav class="menu-desplegable">
           <div class="menu-title">
             <h1>Categorias</h1>
@@ -22,79 +23,18 @@
             <li>
               <a href="#lista-menu">Seleccione una categoria</a>
             </li>
-            <ul class="lista-menu" id="lista-menu">            
+            <ul class="lista-menu" id="lista-menu">
               <% for( let categorie of categories ) { %>
-                <li>
-                  <a href="#products-<%= categorie.name %>">
-                    <%= categorie.name %>
-                  </a>
-                </li>
-              <% } %>            
+              <li>
+                <form action="/products/<%= categorie.id %>" method="get">
+                  <button type="submit"><%= categorie.name %></button>
+                </form>
+              </li>
+              <% } %>
             </ul>
-          </ul>          
-          <div class="contenido">
-            <% for( let productsBycategorie of productsCategories ) { %>
-              <div class="product" id="products-<%= productsBycategorie[0].category %>">
-                <div class="content">          
-                  <% for( let i = 0; i < productsBycategorie.length; i++ ) { %>
-                    <div class="card">
-                      <div class="card-image">
-                        <% if (productsBycategorie[i].images) { %>
-                          <% for( let image of productsBycategorie[i].images ) { %>
-                            <% if (image.isPrincipal == 1) { %>
-                              <img                                            
-                                src="<%= image.path %> "
-                                height="300px"
-                                width="300px"
-                                alt="<%= productsBycategorie[i].name %> "
-                              />
-                            <% } %>
-                          <% } %>                    
-                        <% } %>                    
-                      </div>
-                      <div class="card-body">
-                        <div class="grid">
-                          <div class="row">
-                            <p class="title"><%= productsBycategorie[i].name %></p>
-                          </div>
-                          <div class="row">
-                            <div class="column">
-                              <div class="buttons">
-                                <form action="/products/detail/<%= productsBycategorie[i].id %>" method="get">
-                                  <button class="detalle">Ver detalle</button>
-                                </form>
-                                <button class="agregar-carrito">
-                                  Agregar al
-                                  <span
-                                    class="iconify"
-                                    data-icon="bytesize:cart"
-                                  ></span>
-                                </button>
-                              </div>
-                            </div>
-                            <div class="column">
-                              <div class="cost">
-                                <p class="price">
-                                  <%=
-                                  toCOP.format(Math.round(productsBycategorie[i].priceFinal*(1-(((productsBycategorie[i].discount>0)?productsBycategorie[i].discount:0)/100))))
-                                  %>
-                                </p>
-                                <% if (productsBycategorie[i].discount>0) { %>
-                                <p class="offer"><%= productsBycategorie[i].discount %> % OFF</p>
-                                <p class="price-normal"><%= toCOP.format(productsBycategorie[i].priceFinal) %></p>
-                                <% } %>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  <% } %>
-                </div>                  
-              </div>                        
-            <% } %>
-          </div>  
-        </nav>        
+          </ul>
+        </nav>
+    <!--Menu de categorias-->
         <!--Menu de categorias-->
 
         <!--Slider productos mas vendidos-->
