@@ -56,6 +56,12 @@ const config = {
 const UserLocation = sequelize.define(alias, cols, config);
 
 //------------------------- Relationship
+UserLocation.associations = function (models) {
+  UserLocation.belongsTo(models.User, {
+    as: "users",
+    foreignKey: "userId",
+  });
+};
 
 //------------------------- Init Model
 const initModel = function () {

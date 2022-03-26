@@ -42,6 +42,17 @@ const config = {
 const UserEmail = sequelize.define(alias, cols, config);
 
 //------------------------- Relationship
+UserEmail.associations = function (models) {
+  UserEmail.belongsTo(models.EmailCategory, {
+    as: "emailsCategory",
+    foreignKey: "categoryId",
+  });
+
+  UserEmail.belongsTo(models.User, {
+    as: "users",
+    foreignKey: "userId",
+  });
+};
 
 //------------------------- Init Model
 const initModel = function () {

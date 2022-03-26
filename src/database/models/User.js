@@ -54,6 +54,12 @@ const config = {
 const User = sequelize.define(alias, cols, config);
 
 //------------------------- Relationship
+User.associations = function (models) {
+  User.belongsTo(models.PhoneCategory, {
+    as: "usersGenders",
+    foreignKey: "genderId",
+  });
+};
 
 //------------------------- Init Model
 const initModel = function () {
