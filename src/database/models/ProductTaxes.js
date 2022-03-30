@@ -1,0 +1,43 @@
+//------------------------- Imports
+const { Sequelize, DataTypes } = require("sequelize");
+
+//------------------------- Settings
+const ProductTaxes = (sequelize) => {
+  //Set the Alias
+  const alias = "ProductTaxes";
+
+  //Sets the columns
+  const cols = {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
+    taxeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  };
+
+  //Sets configurations the from model or table
+  const config = {
+    tableName: "phonesCategory",
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    deletedAt: false,
+  };
+
+  //------------------------- Asignation
+  return sequelize.define(alias, cols, config);
+};
+
+//------------------------- Relationship
+
+//------------------------- Return
+module.exports = ProductTaxes;
