@@ -18,7 +18,7 @@ const Product = (sequelize) => {
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    description: {
+    productDescription: {
       type: DataTypes.STRING(255),
     },
     sku: {
@@ -41,7 +41,7 @@ const Product = (sequelize) => {
     discount: {
       type: DataTypes.INTEGER,
     },
-    unitsBuys: {
+    unitsBuyes: {
       type: DataTypes.INTEGER,
     },
     unitsSelled: {

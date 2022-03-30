@@ -14,11 +14,11 @@ const ProductCategory = (sequelize) => {
       primaryKey: true,
       allowNull: false,
     },
-    name: {
-      type: DataTypes.STRING(128),
+    category: {
+      type: DataTypes.STRING(64),
       allowNull: false,
     },
-    description: {
+    notes: {
       type: DataTypes.STRING(255),
     },
   };
