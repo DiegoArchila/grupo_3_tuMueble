@@ -70,6 +70,12 @@ const Product = (sequelize) => {
 };
 
 //------------------------- Relationship
+Product.associations = function (models) {
+  Product.belongsTo(models.ProductCategory, {
+    as: "productsCategory",
+    foreignKey: "categoryId",
+  });
+};
 
 //------------------------- Return
 module.exports = Product;

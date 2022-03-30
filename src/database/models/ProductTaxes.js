@@ -38,6 +38,15 @@ const ProductTaxes = (sequelize) => {
 };
 
 //------------------------- Relationship
-
+ProductTaxes.associations = function (models) {
+  ProductTaxes.belongsTo(models.Product, {
+    as: "products",
+    foreignKey: "productId",
+  });
+  ProductTaxes.belongsTo(models.Tax, {
+    as: "taxes",
+    foreignKey: "taxeId",
+  });
+};
 //------------------------- Return
 module.exports = ProductTaxes;
