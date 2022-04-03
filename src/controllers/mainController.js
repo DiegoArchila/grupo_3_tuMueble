@@ -30,16 +30,49 @@ const home = async (req, res) => {
     3 //Cantidad de sliders a mostrar
   );*/
   let categories = [];
+  let mainImages = [];
+  let idProducts = [];
 
   try {
     productsMasComprados = await db.Product.findAll({
       order: [["unitsSelled", "ASC"]],
       limit: 3,
     });
+    idProducts = productsMasComprados.map((product) => {
+      return product.id;
+    });
+
+    mainImages = await db.ProductImages.findAll({
+      where: {
+        productId: { [Op.in]: idProducts },
+      },
+    });
+
+    productsMasComprados.forEach((product) => {
+      product.mainImage = mainImages.find(
+        (image) => image.productId == product.id
+      );
+    });
+
     productsOfertas = await db.Product.findAll({
       where: { discount: { [Op.gt]: 0 } },
       order: [["discount", "ASC"]],
       limit: 3,
+    });
+    idProducts = productsOfertas.map((product) => {
+      return product.id;
+    });
+
+    mainImages = await db.ProductImages.findAll({
+      where: {
+        productId: { [Op.in]: idProducts },
+      },
+    });
+
+    productsOfertas.forEach((product) => {
+      product.mainImage = mainImages.find(
+        (image) => image.productId == product.id
+      );
     });
     categories = await db.ProductCategory.findAll();
   } catch (error) {

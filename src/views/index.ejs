@@ -47,18 +47,14 @@
               <% for(let i=0; i<productsMasComprados.length; i++) { %>
               <li id="slideProductsMasComprados<%= i + 1 %>">
                 <div class="card">
-                  <% if (productsMasComprados[i].images) { %>
-                    <div class="card-image">
-                      <% for( let image of productsMasComprados[i].images ) { %>
-                        <% if (image.isPrincipal == 1) { %>
+                  <% if (productsMasComprados[i].mainImage) { %>
+                    <div class="card-image">                      
                           <img                                            
-                            src="<%= image.path %> "
+                            src="<%= productsMasComprados[i].mainImage.pathImagen %> "
                             height="300px"
                             width="300px"
                             alt="<%= productsMasComprados[i].productName %> "
-                          />
-                        <% } %>
-                      <% } %>                    
+                          />                             
                     </div>
                   <% } %>
                   <div class="card-body">
@@ -121,17 +117,13 @@
               <li id="slideProductsOfertas<%= i + 1 %>">
                 <div class="card">
                   <div class="card-image">
-                    <% if (productsOfertas[i].images) { %>
-                      <% for( let image of productsOfertas[i].images ) { %>
-                        <% if (image.isPrincipal == 1) { %>
+                    <% if (productsOfertas[i].mainImage) { %>                      
                           <img                                            
-                            src="<%= image.path %> "
+                            src="<%= productsOfertas[i].mainImage.pathImagen %> "
                             height="300px"
                             width="300px"
                             alt="<%= productsOfertas[i].productName %> "
-                          />
-                        <% } %>
-                      <% } %>                    
+                          />                        
                     <% } %>                    
                   </div>
                   <div class="card-body">
