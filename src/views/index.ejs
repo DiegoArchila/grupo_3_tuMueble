@@ -26,8 +26,8 @@
             <ul class="lista-menu" id="lista-menu">
               <% for( let categorie of categories ) { %>
               <li>
-                <form action="/products/<%= categorie.id %>" method="get">
-                  <button type="submit"><%= categorie.name %></button>
+                <form action="/products/category/<%= categorie.id %>" method="get">
+                  <button type="submit"><%= categorie.category %></button>
                 </form>
               </li>
               <% } %>
@@ -47,22 +47,24 @@
               <% for(let i=0; i<productsMasComprados.length; i++) { %>
               <li id="slideProductsMasComprados<%= i + 1 %>">
                 <div class="card">
-                  <div class="card-image">
-                    <% for( let image of productsMasComprados[i].images ) { %>
-                      <% if (image.isPrincipal == 1) { %>
-                        <img                                            
-                          src="<%= image.path %> "
-                          height="300px"
-                          width="300px"
-                          alt="<%= productsMasComprados[i].name %> "
-                        />
-                      <% } %>
-                    <% } %>                    
-                  </div>
+                  <% if (productsMasComprados[i].images) { %>
+                    <div class="card-image">
+                      <% for( let image of productsMasComprados[i].images ) { %>
+                        <% if (image.isPrincipal == 1) { %>
+                          <img                                            
+                            src="<%= image.path %> "
+                            height="300px"
+                            width="300px"
+                            alt="<%= productsMasComprados[i].productName %> "
+                          />
+                        <% } %>
+                      <% } %>                    
+                    </div>
+                  <% } %>
                   <div class="card-body">
                     <div class="grid">
                       <div class="row">
-                        <p class="title"><%= productsMasComprados[i].name %></p>
+                        <p class="title"><%= productsMasComprados[i].ProductName %></p>
                       </div>
                       <div class="row">
                         <div class="column">
@@ -83,12 +85,12 @@
                           <div class="cost">
                             <p class="price">
                               <%=
-                              toCOP.format(Math.round(productsMasComprados[i].priceFinal*(1-(((productsMasComprados[i].discount>0)?productsMasComprados[i].discount:0)/100))))
+                              toCOP.format(productsMasComprados[i].priceFinal)
                               %>
                             </p>
                             <% if (productsMasComprados[i].discount>0) { %>
                             <p class="offer"><%= productsMasComprados[i].discount %> % OFF</p>
-                            <p class="price-normal"><%= toCOP.format(productsMasComprados[i].priceFinal) %></p>
+                            <p class="price-normal"><%= toCOP.format(productsMasComprados[i].priceGross) %></p>
                             <% } %>
                           </div>
                         </div>
@@ -126,7 +128,7 @@
                             src="<%= image.path %> "
                             height="300px"
                             width="300px"
-                            alt="<%= productsOfertas[i].name %> "
+                            alt="<%= productsOfertas[i].productName %> "
                           />
                         <% } %>
                       <% } %>                    
@@ -135,7 +137,7 @@
                   <div class="card-body">
                     <div class="grid">
                       <div class="row">
-                        <p class="title"><%= productsOfertas[i].name %></p>
+                        <p class="title"><%= productsOfertas[i].productName %></p>
                       </div>
                       <div class="row">
                         <div class="column">
@@ -156,12 +158,12 @@
                           <div class="cost">
                             <p class="price">
                               <%=
-                              toCOP.format(Math.round(productsOfertas[i].priceFinal*(1-(((productsOfertas[i].discount>0)?productsOfertas[i].discount:0)/100))))
+                              toCOP.format(productsOfertas[i].priceFinal)
                               %>
                             </p>
                             <% if (productsOfertas[i].discount>0) { %>
                             <p class="offer"><%= productsOfertas[i].discount %> % OFF</p>
-                            <p class="price-normal"><%= toCOP.format(productsOfertas[i].priceFinal) %></p>
+                            <p class="price-normal"><%= toCOP.format(productsOfertas[i].priceGross) %></p>
                             <% } %>
                           </div>
                         </div>

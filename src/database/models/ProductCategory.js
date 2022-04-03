@@ -37,6 +37,12 @@ const ProductCategory = (sequelize) => {
 };
 
 //------------------------- Relationship
+ProductCategory.associate = function (models) {
+  ProductCategory.hasMany(models.Product, {
+    as: "products",
+    foreignKey: "categoryId",
+  });
+};
 
 //------------------------- Return
 module.exports = ProductCategory;

@@ -70,9 +70,9 @@ const Product = (sequelize) => {
 };
 
 //------------------------- Relationship
-Product.associations = function (models) {
+Product.associate = function (models) {
   Product.belongsTo(models.ProductCategory, {
-    as: "productsCategory",
+    as: "category",
     foreignKey: "categoryId",
   });
 };
