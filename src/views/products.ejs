@@ -33,17 +33,14 @@
       <% for( let product of products) { %>
       <div class="content">
         <div class="card">
-          <% if (product.images) { %>
+          <% if (product.mainImage) { %>
           <div class="card-image">
-            <% for( let image of product.images ) { %> <% if (image.isPrincipal
-            == 1) { %>
             <img
-              src="<%= image.path %> "
+              src="<%= product.mainImage.pathImagen %> "
               height="300px"
               width="300px"
               alt="<%= product.productName %> "
             />
-            <% } %> <% } %>
           </div>
           <% } %>
           <div class="card-body">
