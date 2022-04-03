@@ -18,8 +18,8 @@
         <ul class="lista-menu" id="lista-menu">
           <% for( let categorie of categories ) { %>
           <li>
-            <form action="/products/<%= categorie.id %>" method="get">
-              <button type="submit"><%= categorie.name %></button>
+            <form action="/products/category/<%= categorie.id %>" method="get">
+              <button type="submit"><%= categorie.category %></button>
             </form>
           </li>
           <% } %>
@@ -33,6 +33,7 @@
       <% for( let product of products) { %>
       <div class="content">
         <div class="card">
+          <% if (product.images) { %>
           <div class="card-image">
             <% for( let image of product.images ) { %> <% if (image.isPrincipal
             == 1) { %>
@@ -40,26 +41,23 @@
               src="<%= image.path %> "
               height="300px"
               width="300px"
-              alt="<%= product.name %> "
+              alt="<%= product.productName %> "
             />
             <% } %> <% } %>
           </div>
+          <% } %>
           <div class="card-body">
             <div class="grid">
               <div class="row">
-                <p class="title"><%= product.name %></p>
+                <p class="title"><%= product.productName %></p>
               </div>
               <div class="column">
                 <div class="cost">
-                  <p class="price">
-                    <%=
-                    toCOP.format(Math.round(product.priceFinal*(1-(((product.discount>0)?product.discount:0)/100))))
-                    %>
-                  </p>
+                  <p class="price"><%= toCOP.format(product.priceFinal) %></p>
                   <% if (product.discount>0) { %>
                   <p class="offer"><%= product.discount %> % OFF</p>
                   <p class="price-normal">
-                    <%= toCOP.format(product.priceFinal) %>
+                    <%= toCOP.format(product.priceGross) %>
                   </p>
                   <% } %>
                 </div>

@@ -1,23 +1,25 @@
 const settingGeneral = require("../databases/settingGeneralSite.json");
 const index = require("../databases/index.json");
 const products = require("../databases/business/products.json");
-const { minibar } =require("../lib/complements.js");
+const { minibar } = require("../lib/complements.js");
 const { create } = require("../models/users.js");
 const categories = require("../databases/business/productsCategories.json");
 const { toCOP } = require("../lib/formats.js");
 
+const db = require("../database/models/index.js");
+const Op = db.Sequelize.Op;
 
 const functions = require("../lib/functions.js");
 
 const home = async (req, res) => {
   index.title = "home";
 
-  let productsMasComprados = functions.recortarTamanioDeUnArreglo(
+  let productsMasComprados = []; /*functions.recortarTamanioDeUnArreglo(
     [...products].sort((a, b) => b.buyes - a.buyes), //Se ordenan por productos mas comprados
     3 //Cantidad de sliders a mostrar
-  );
+  );*/
 
-  let productsOfertas = functions.recortarTamanioDeUnArreglo(
+  let productsOfertas = []; /*functions.recortarTamanioDeUnArreglo(
     [...products]
       .map((product) => {
         if (product.discount > 0) {
@@ -26,23 +28,24 @@ const home = async (req, res) => {
       })
       .sort((a, b) => b.discount - a.discount), //Productos con ofertas de mayor a menor
     3 //Cantidad de sliders a mostrar
-  );
+  );*/
+  let categories = [];
 
-  let productsCategories = [];
-  let productsByCategorie = [];
-
-  categories.forEach((category) => {
-    productsByCategorie = functions.recortarTamanioDeUnArreglo(
-      [...products]
-        .filter((product) => product.category == category.name) //Filtro por categoria
-        .sort((a, b) => b.buyes - a.buyes), //Se organizan por mas vendidos
-      3 //Se recorta el array a 3
-    );
-    if (productsByCategorie.length > 0) {
-      productsCategories.push(productsByCategorie);
-    }
-    productsByCategorie = [];
-  });
+  try {
+    productsMasComprados = await db.Product.findAll({
+      order: [["unitsSelled", "ASC"]],
+      limit: 3,
+    });
+    productsOfertas = await db.Product.findAll({
+      where: { discount: { [Op.gt]: 0 } },
+      order: [["discount", "ASC"]],
+      limit: 3,
+    });
+    categories = await db.ProductCategory.findAll();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 
   try {
     await res.render("index.ejs", {
@@ -50,7 +53,6 @@ const home = async (req, res) => {
       index,
       productsMasComprados,
       productsOfertas,
-      productsCategories,
       categories,
       toCOP,
     });
@@ -73,14 +75,12 @@ const login = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-
   try {
     create(req.body);
     res.redirect("/login");
   } catch (error) {
     throw error;
   }
-
 };
 
 const showCreateUser = async (req, res) => {

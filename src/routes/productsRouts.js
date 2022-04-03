@@ -11,7 +11,7 @@ router.get(`${urlProducts}`, productsController.viewAllProducts);
 
 //Products by category
 router.get(
-  `${urlProducts}/:categoryId`,
+  `${urlProducts}/category/:categoryId`,
   productsController.viewProductsByCategory
 );
 
