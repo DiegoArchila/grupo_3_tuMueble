@@ -1,6 +1,6 @@
 const multer = require("multer");
 
-const saveOneImage = (urlDestination) => {
+const saveImages = (urlDestination) => {
   var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, urlDestination);
@@ -15,5 +15,5 @@ const saveOneImage = (urlDestination) => {
 };
 
 module.exports = {
-  saveOneImage,
+  saveImages,
 };
