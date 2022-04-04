@@ -83,9 +83,14 @@ module.exports = {
       taxes,
     });
   },
-  createProductPost: (req, res) => {
-    let body = req.body;
-    res.json(body);
+  createProductPost: (req, res, next) => {
+    const body = req.body;
+    const file = req.file;
+    if (!file) {
+      const error = new Error("Por favor seleccione un archivo");
+      error.httpStatusCode = 400;
+      return next(error);
+    }
   },
   user: (req, res) => {
     res.render("./admin/adminUser.ejs", {
