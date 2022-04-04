@@ -40,7 +40,7 @@
                 <% if (Object.keys(products).length!=0) {%>
                     <% products.forEach(product => {%>
                         <article class="flx-ctr product__item">
-                            <a href="/products/<%= product.id %>" class="product__itemName"><%= product.name %></a>
+                            <a href="/products/<%= product.id %>" class="product__itemName"><%= product.productName %></a>
                             <div class="flx-clm-ctr">
                                 <span class="product__discount">-<%= product.discount %>% OFF</span>
                                 <span class="product__totalPrice"><%= toCOP.format(product.priceFinal) %></span>
