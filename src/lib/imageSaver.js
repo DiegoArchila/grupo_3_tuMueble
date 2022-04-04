@@ -1,5 +1,4 @@
 const multer = require("multer");
-const path = require("path");
 
 const saveOneImage = (urlDestination) => {
   var storage = multer.diskStorage({
@@ -7,10 +6,7 @@ const saveOneImage = (urlDestination) => {
       cb(null, urlDestination);
     },
     filename: function (req, file, cb) {
-      cb(
-        null,
-        `${file.fieldname}-${Date.now()}-${path.extname(file.originalname)}`
-      );
+      cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`);
     },
   });
   var upload = multer({ storage: storage });
