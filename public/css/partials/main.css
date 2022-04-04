@@ -16,6 +16,11 @@
   font-weight: bolder;
 }
 
+/*------------------------------- common*/
+.text-danger {
+  color: red;
+}
+
 /*------------------------------- VIEW CART*/
 /*Cart Detail Title*/
 .cartDetail__title,

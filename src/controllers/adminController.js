@@ -59,13 +59,33 @@ module.exports = {
       products,
     });
   },
-  createProduct: (req, res) => {
+  createProduct: async (req, res) => {
+    let categories = [];
+    let taxes = [];
+    try {
+      categories = await db.ProductCategory.findAll({
+        order: [["category", "ASC"]],
+      });
+      taxes = await db.Tax.findAll({
+        where: { isActive: 1 },
+        order: [["taxeName", "ASC"]],
+      });
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
     res.render("./admin/createProduct.ejs", {
       index,
       settingGeneral,
       minibar,
       toCOP,
+      categories,
+      taxes,
     });
+  },
+  createProductPost: (req, res) => {
+    let body = req.body;
+    res.json(body);
   },
   user: (req, res) => {
     res.render("./admin/adminUser.ejs", {
