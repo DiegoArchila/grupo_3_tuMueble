@@ -6,7 +6,7 @@ const imageSaver = require("../lib/imageSaver.js");
 const adminController = require("../controllers/adminController.js");
 
 //Imagen principal del producto
-let saveMainImage = imageSaver.saveImages("public/img/store/products");
+let saveProductImages = imageSaver.saveImages("public/img/store/products");
 
 router.get("/admin", adminController.admin);
 
@@ -23,7 +23,7 @@ router.get("/admin/products", adminController.products);
 router.get("/admin/products/create", adminController.createProduct);
 router.post(
   "/admin/products/create",
-  saveMainImage.single("imageMain"),
+  saveProductImages.single("imageMain"),
   adminController.createProductPost
 );
 

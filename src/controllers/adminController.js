@@ -83,13 +83,47 @@ module.exports = {
       taxes,
     });
   },
-  createProductPost: (req, res, next) => {
+  createProductPost: async (req, res, next) => {
     const body = req.body;
     const file = req.file;
     if (!file) {
       const error = new Error("Por favor seleccione un archivo");
       error.httpStatusCode = 400;
       return next(error);
+    }
+    if (body) {
+      let producto = {};
+      let mainImage = {};
+      let discount =
+        Math.round((Number(body.priceFinal) / Number(body.priceGross)) * 100) /
+        100; //Dos decimales maximo
+      try {
+        producto = await db.Product.create({
+          productName: body.productName,
+          productDescription: body.productDescription,
+          productTerminated: body.productTerminated,
+          sku: body.sku,
+          categoryId: Number(body.categoryId),
+          unitsBuyes: Number(body.unitsBuyes),
+          unitsSelled: 0,
+          isActive: true,
+          priceGross: Number(body.priceGross),
+          priceFinal: Number(body.priceFinal),
+          discount,
+        });
+        mainImage = await db.ProductImages.create({
+          isMain: 1,
+          pathImagen: file.filename,
+          productId: producto.id,
+        });
+        await db.ProductTaxes.create({
+          taxeId: Number(body.taxesId),
+          productId: producto.id,
+        });
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     }
   },
   user: (req, res) => {

@@ -26,7 +26,7 @@ const ProductTaxes = (sequelize) => {
 
   //Sets configurations the from model or table
   const config = {
-    tableName: "phonesCategory",
+    tableName: "productsTaxes",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
