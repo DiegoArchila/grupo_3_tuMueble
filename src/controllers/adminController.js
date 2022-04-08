@@ -2,6 +2,8 @@ const db = require("../database/models/index.js");
 const Op = db.Sequelize.Op;
 const products = require("../databases/business/products.json");
 const orders = require("../databases/business/orders.json");
+const functions = require("../lib/functions.js");
+const fs = require("fs");
 
 /**Index contain information from title the page.
  *
@@ -199,6 +201,28 @@ module.exports = {
           },
           { where: { productId } }
         );
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
+  },
+  deleteProduct: async (req, res) => {
+    let productId = req.params.id;
+    if (productId) {
+      let principalImage = {};
+      try {
+        principalImage = await db.ProductImages.findOne({
+          where: { productId, isMain: true },
+        });
+        if (principalImage.pathImagen) {
+          functions.eliminarArchivo(
+            `/public/img/store/products/${principalImage.pathImagen}`
+          );
+        }
+        await db.ProductImages.destroy({ where: { productId, isMain: true } });
+        await db.ProductTaxes.destroy({ where: { productId } });
+        await db.Product.destroy({ where: { id: productId } });
       } catch (error) {
         console.error(error);
         throw error;

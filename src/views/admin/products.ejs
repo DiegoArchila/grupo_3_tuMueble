@@ -45,11 +45,11 @@
                                 <span class="product__discount">-<%= product.discount %>% OFF</span>
                                 <span class="product__totalPrice"><%= toCOP.format(product.priceFinal) %></span>
                             </div>
-                            <button class="product__buttonDelete cartDetail__button flx-clm-ctr">
-                                <a href="/admin/products/delete/<%= product.id %>">
-                                    <i class="iconify" data-icon="ph:trash-simple"></i>
-                                </a>
-                            </button>
+                            <form action="/admin/products/delete/<%= product.id %>" method="post">
+                                <button class="product__buttonDelete cartDetail__button flx-clm-ctr">                                    
+                                    <i class="iconify" data-icon="ph:trash-simple"></i>                                    
+                                </button>
+                            </form>
                             <button class="product__buttonEdit cartDetail__buttonUnitsAdd">
                                 <a href="/admin/products/edit/<%= product.id %>">
                                     <i class="iconify" data-icon="ant-design:edit-outlined"></i>
