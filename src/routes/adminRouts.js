@@ -20,6 +20,9 @@ router.post("/admin/user", adminController.user);
  * Admin Products
  */
 router.get("/admin/products", adminController.products);
+router.get("/admin/products/edit/:id", adminController.editProductView);
+router.post("/admin/products/edit/:id", adminController.editProduct);
+router.post("/admin/products/delete/:id", adminController.deleteProduct);
 router.get("/admin/products/create", adminController.createProduct);
 router.post(
   "/admin/products/create",

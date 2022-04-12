@@ -30,8 +30,7 @@
         <!-- Form new product  -->
         <form
           class="product__form"
-          action="/admin/products/create"
-          enctype="multipart/form-data"
+          action="/admin/products/edit/<%= product.id %>"
           method="post"
         >
           <!--Container images-->
@@ -49,13 +48,17 @@
             <label class="product__inputText" for="imageMain">
               Imagen principal <sup class="text-danger">*</sup>
             </label>
+            <img
+              src="/img/store/products/<%= imagePrincipal.pathImagen %>"
+              alt=""
+              class="product__imagen"
+            />
             <input
               type="file"
               name="imageMain"
               id="imageMain"
               class="product__imagesButtonAdd"
               accept="image/png, .jpg, .jpeg, image/gif"
-              required
             />
             <!--
             <label class="product__inputText" for="imageMain"> Imagenes </label>
@@ -109,6 +112,7 @@
             minlength="2"
             maxlength="128"
             placeholder="Ingrese el nombre del producto..."
+            value="<%= product.productName %>"
           />
 
           <!--Description-->
@@ -124,7 +128,9 @@
             maxlength="512"
             required
             placeholder="Ingrese la descripción del producto..."
-          ></textarea>
+          >
+<%= product.productDescription %></textarea
+          >
 
           <!--Terminate-->
           <label class="product__inputText" for="productTerminated">
@@ -138,6 +144,7 @@
             minlength="2"
             maxlength="64"
             placeholder="Ingrese el acabado del producto..."
+            value="<%= product.productTerminated %>"
           />
 
           <!--SKU-->
@@ -149,6 +156,7 @@
             minlength="2"
             maxlength="64"
             placeholder="Ingrese el sku del producto..."
+            value="<%= product.sku %>"
           />
 
           <!--Category-->
@@ -161,10 +169,14 @@
             class="product__inputCategory"
             required
           >
-            <option value="" disabled selected>Seleccione</option>
-            <% categories.forEach(category => { %>
+            <% categories.forEach(category => { %> <% if (category.id ==
+            product.categoryId) { %>
+            <option value="<%= category.id %>" selected>
+              <%= category.category %>
+            </option>
+            <% }else{ %>
             <option value="<%= category.id %>"><%= category.category %></option>
-            <% }) %>
+            <% } %> <% }) %>
           </select>
 
           <!--Taxes-->
@@ -177,8 +189,11 @@
             class="product__inputTaxes"
             required
           >
-            <option value="" disabled selected>Seleccione</option>
-            <% taxes.forEach(tax => { %>
+            <% taxes.forEach(tax => { %> <% if (tax.id == productTaxId) { %>
+            <option value="<%= tax.id %>" selected>
+              <%= tax.taxeName %> %<%= tax.taxeValue %>
+            </option>
+            <% } %>
             <option value="<%= tax.id %>">
               <%= tax.taxeName %> %<%= tax.taxeValue %>
             </option>
@@ -197,6 +212,7 @@
             min="0"
             required
             placeholder="Ingrese las unidades..."
+            value="<%= product.unitsBuyes %>"
           />
 
           <!--Price gross-->
@@ -211,6 +227,7 @@
             min="0"
             required
             placeholder="Ingrese el precio bruto..."
+            value="<%= product.priceGross %>"
           />
 
           <!--Price final-->
@@ -225,6 +242,7 @@
             min="0"
             required
             placeholder="Ingrese el precio final..."
+            value="<%= product.priceFinal %>"
           />
 
           <!--discount-->
@@ -239,12 +257,14 @@
             id="discount"
             min="0"
             placeholder="Esperando precio bruto y final..."
+            value="<%= product.discount %>"
           />
 
           <label class="product__inputText" for="isActive">
             Producto activo
           </label>
-          <input type="checkbox" name="isActive" id="isActive" checked />
+          <input type="checkbox" name="isActive" id="isActive" <% if
+          (product.isActive == 1) { %> checked <% } %> />
 
           <!--buttons-->
           <div class="flx-ctr">
@@ -259,7 +279,7 @@
               type="submit"
               class="product__buttons product__buttonSend flx-ctr"
             >
-              Crear
+              Editar
               <i class="iconify" data-icon="mdi:cube-send"></i>
             </button>
           </div>
