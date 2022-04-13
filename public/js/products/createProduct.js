@@ -84,11 +84,7 @@ window.addEventListener("load", () => {
     }
 
     //unitsBuyesInput
-    if (
-      unitsBuyesInput.value == "" ||
-      unitsBuyesInput == 0 ||
-      !unitsBuyesInput.value
-    ) {
+    if (unitsBuyesInput.value == "" || !unitsBuyesInput.value) {
       erroresList.set(
         "unitsBuyes-Required",
         "Ingrese el inventario del producto."
@@ -110,11 +106,7 @@ window.addEventListener("load", () => {
     }
 
     //priceGrossInput
-    if (
-      priceGrossInput.value == "" ||
-      priceGrossInput == 0 ||
-      !priceGrossInput.value
-    ) {
+    if (priceGrossInput.value == "" || !priceGrossInput.value) {
       erroresList.set(
         "priceGross-Required",
         "Ingrese el precio bruto del producto."
@@ -131,11 +123,7 @@ window.addEventListener("load", () => {
     }
 
     //priceFinalInput
-    if (
-      priceFinalInput.value == "" ||
-      priceFinalInput == 0 ||
-      !priceFinalInput.value
-    ) {
+    if (priceFinalInput.value == "" || !priceFinalInput.value) {
       erroresList.set(
         "priceFinal-Required",
         "Ingrese el precio final del producto."
