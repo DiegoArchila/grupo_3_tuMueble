@@ -214,14 +214,14 @@ module.exports = {
     if (productId) {
       let principalImage = {};
       try {
-        principalImage = await db.ProductImages.findOne({
+        /*principalImage = await db.ProductImages.findOne({
           where: { productId, isMain: true },
         });
         if (principalImage.pathImagen) {
           functions.eliminarArchivo(
             `/public/img/store/products/${principalImage.pathImagen}`
           );
-        }
+        }*/
         await db.ProductImages.destroy({ where: { productId, isMain: true } });
         await db.ProductTaxes.destroy({ where: { productId } });
         await db.Product.destroy({ where: { id: productId } });
