@@ -118,10 +118,12 @@ module.exports = {
           pathImagen: file.filename,
           productId: producto.id,
         });
-        await db.ProductTaxes.create({
-          taxeId: Number(body.taxesId),
-          productId: producto.id,
-        });
+        if (body.taxesId) {
+          await db.ProductTaxes.create({
+            taxeId: Number(body.taxesId),
+            productId: producto.id,
+          });
+        }
       } catch (error) {
         console.error(error);
         throw error;
