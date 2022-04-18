@@ -1,7 +1,8 @@
+import * as Validations from "./../validations/validations.js";
+
 window.addEventListener("load", () => {
   let formCreateProduct = document.querySelector("#createProduct");
   let erroresList = new Map();
-  const ErroresTypes = ["Required", "Min", "Max", "Number"];
 
   formCreateProduct.addEventListener("submit", (event) => {
     erroresList.clear();
@@ -15,125 +16,258 @@ window.addEventListener("load", () => {
     let priceGrossInput = document.querySelector("#priceGross");
     let priceFinalInput = document.querySelector("#priceFinal");
 
+    let inputName = "";
+
     //productNameInput
-    if (productNameInput.value == "" || !productNameInput.value) {
+    inputName = "productName";
+    if (
+      Validations.validationForType(
+        productNameInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "productName-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese el nombre del producto."
       );
     } else {
-      if (productNameInput.value.length < 2) {
+      if (
+        Validations.validationForType(
+          productNameInput.value,
+          Validations.ErroresTypes.MinLength,
+          {
+            minLength: 2,
+          }
+        )
+      ) {
+        console.log("alof");
         erroresList.set(
-          "productName-Min",
+          `${inputName}-${Validations.ErroresTypes.MinLength}`,
           `El campo debe tener minimo 2 caracteres.`
         );
-      } else if (productNameInput.value.length > 128) {
+      } else if (
+        Validations.validationForType(
+          productNameInput.value,
+          Validations.ErroresTypes.MaxLength,
+          {
+            maxLength: 128,
+          }
+        )
+      ) {
         erroresList.set(
-          "productName-Max",
+          `${inputName}-${Validations.ErroresTypes.MaxLength}`,
           `El campo debe tener maximo 128 caracteres.`
         );
       }
     }
 
+    inputName = "productDescription";
     //productDescriptionInput
-    if (productDescriptionInput.value == "" || !productDescriptionInput.value) {
+    if (
+      Validations.validationForType(
+        productDescriptionInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "productDescription-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese la descripcion del producto."
       );
     } else {
-      if (productDescriptionInput.value.length < 2) {
+      if (
+        Validations.validationForType(
+          productDescriptionInput.value,
+          Validations.ErroresTypes.MinLength,
+          { minLength: 2 }
+        )
+      ) {
         erroresList.set(
-          "productDescription-Min",
+          `${inputName}-${Validations.ErroresTypes.Min}`,
           `El campo debe tener minimo 2 caracteres.`
         );
-      } else if (productDescriptionInput.value.length > 512) {
+      } else if (
+        Validations.validationForType(
+          productDescriptionInput.value,
+          Validations.ErroresTypes.MaxLength,
+          { maxLength: 512 }
+        )
+      ) {
         erroresList.set(
-          "productDescription-Max",
+          `${inputName}-${Validations.ErroresTypes.MaxLength}`,
           `El campo debe tener maximo 512 caracteres.`
         );
       }
     }
 
     //productTerminatedInput
-    if (productTerminatedInput.value == "" || !productTerminatedInput.value) {
+    inputName = "productTerminated";
+    if (
+      Validations.validationForType(
+        productTerminatedInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "productTerminated-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese el terminado del producto."
       );
     } else {
-      if (productTerminatedInput.value.length < 2) {
+      if (
+        Validations.validationForType(
+          productTerminatedInput.value,
+          Validations.ErroresTypes.MinLength,
+          { minLength: 2 }
+        )
+      ) {
         erroresList.set(
-          "productTerminated-Min",
+          `${inputName}-${Validations.ErroresTypes.MinLength}`,
           `El campo debe tener minimo 2 caracteres.`
         );
-      } else if (productTerminatedInput.value.length > 64) {
+      } else if (
+        Validations.validationForType(
+          productTerminatedInput.value,
+          Validations.ErroresTypes.MaxLength,
+          { maxLength: 64 }
+        )
+      ) {
         erroresList.set(
-          "productTerminated-Max",
+          `${inputName}-${Validations.ErroresTypes.MaxLength}`,
           `El campo debe tener maximo 64 caracteres.`
         );
       }
     }
 
     //categoryIdSelect
-    if (categoryIdSelect.value == "" || !categoryIdSelect.value) {
+    inputName = "categoryId";
+    if (
+      Validations.validationForType(
+        categoryIdSelect.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "categoryId-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese la categoria del producto."
       );
     }
 
     //unitsBuyesInput
-    if (unitsBuyesInput.value == "" || !unitsBuyesInput.value) {
+    inputName = "unitsBuyes";
+    if (
+      Validations.validationForType(
+        unitsBuyesInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "unitsBuyes-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese el inventario del producto."
       );
     } else {
-      if (Number(unitsBuyesInput.value) == NaN) {
-        erroresList.set("unitsBuyes-Number", "Ingrese un numero");
-      } else if (unitsBuyesInput.value < 0) {
+      if (
+        Validations.validationForType(
+          unitsBuyesInput.value,
+          Validations.ErroresTypes.Number
+        )
+      ) {
         erroresList.set(
-          "unitsBuyes-Min",
+          `${inputName}-${Validations.ErroresTypes.Number}`,
+          "Ingrese un numero"
+        );
+      } else if (
+        Validations.validationForType(
+          unitsBuyesInput.value,
+          Validations.ErroresTypes.Min,
+          { min: 0 }
+        )
+      ) {
+        erroresList.set(
+          `${inputName}-${Validations.ErroresTypes.Min}`,
           `El campo debe ser mayor o igual a 0.`
         );
-      } else if (unitsBuyesInput.value > 999) {
+      } else if (
+        Validations.validationForType(
+          unitsBuyesInput.value,
+          Validations.ErroresTypes.Max,
+          { max: 999 }
+        )
+      ) {
         erroresList.set(
-          "unitsBuyes-Max",
+          `${inputName}-${Validations.ErroresTypes.Max}`,
           `El campo debe ser menor o igual a 999.`
         );
       }
     }
 
     //priceGrossInput
-    if (priceGrossInput.value == "" || !priceGrossInput.value) {
+    inputName = "priceGross";
+    if (
+      Validations.validationForType(
+        priceGrossInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "priceGross-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese el precio bruto del producto."
       );
     } else {
-      if (Number(priceGrossInput.value) == NaN) {
-        erroresList.set("priceGross-Number", "Ingrese un numero");
-      } else if (priceGrossInput.value < 0) {
+      if (
+        Validations.validationForType(
+          priceGrossInput.value,
+          Validations.ErroresTypes.Number
+        )
+      ) {
         erroresList.set(
-          "priceGross-Min",
+          `${inputName}-${Validations.ErroresTypes.Number}`,
+          "Ingrese un numero"
+        );
+      } else if (
+        Validations.validationForType(
+          priceGrossInput.value,
+          Validations.ErroresTypes.Min,
+          { min: 0 }
+        )
+      ) {
+        erroresList.set(
+          `${inputName}-${Validations.ErroresTypes.Min}`,
           `El campo debe ser mayor o igual a 0.`
         );
       }
     }
 
     //priceFinalInput
-    if (priceFinalInput.value == "" || !priceFinalInput.value) {
+    inputName = "priceFinal";
+    if (
+      Validations.validationForType(
+        priceFinalInput.value,
+        Validations.ErroresTypes.Required
+      )
+    ) {
       erroresList.set(
-        "priceFinal-Required",
+        `${inputName}-${Validations.ErroresTypes.Required}`,
         "Ingrese el precio final del producto."
       );
     } else {
-      if (Number(priceFinalInput.value) == NaN) {
-        erroresList.set("priceFinal-Number", "Ingrese un numero");
-      } else if (priceFinalInput.value < 0) {
+      if (
+        Validations.validationForType(
+          priceFinalInput.value,
+          Validations.ErroresTypes.Number
+        )
+      ) {
         erroresList.set(
-          "priceFinal-Min",
+          `${inputName}-${Validations.ErroresTypes.Number}`,
+          "Ingrese un numero"
+        );
+      } else if (
+        Validations.validationForType(
+          priceFinalInput.value,
+          Validations.ErroresTypes.Min,
+          { min: 0 }
+        )
+      ) {
+        erroresList.set(
+          `${inputName}-${Validations.ErroresTypes.Min}`,
           `El campo debe ser mayor o igual a 0.`
         );
       }
@@ -170,7 +304,7 @@ window.addEventListener("load", () => {
     priceFinalInput.style.borderColor = "black";
 
     //Ciclo para añadir el listado de errores al html
-    for (const ErrorType of ErroresTypes) {
+    for (const ErrorType of Validations.ErroresTypesList) {
       //productName
       if (erroresList.has(`productName-${ErrorType}`)) {
         productName_errores.innerHTML += `<li class="has-error">
