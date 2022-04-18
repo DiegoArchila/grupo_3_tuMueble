@@ -32,6 +32,7 @@
           class="product__form"
           action="/admin/products/edit/<%= product.id %>"
           method="post"
+          id="editProduct"
         >
           <!--Container images-->
           <div class="product__imagesContainer">
@@ -108,12 +109,14 @@
             type="text"
             name="productName"
             id="productName"
-            required
-            minlength="2"
-            maxlength="128"
             placeholder="Ingrese el nombre del producto..."
             value="<%= product.productName %>"
           />
+
+          <!--Listado de errores-->
+          <div id="productName_errores">
+            <ul></ul>
+          </div>
 
           <!--Description-->
           <label class="product__inputText" for="productDescription">
@@ -124,13 +127,15 @@
             name="productDescription"
             id="productDescription"
             rows="4"
-            minlength="2"
-            maxlength="512"
-            required
             placeholder="Ingrese la descripción del producto..."
           >
 <%= product.productDescription %></textarea
           >
+
+          <!--Listado de errores-->
+          <div id="productDescription_errores">
+            <ul></ul>
+          </div>
 
           <!--Terminate-->
           <label class="product__inputText" for="productTerminated">
@@ -140,12 +145,14 @@
             type="text"
             name="productTerminated"
             id="productTerminated"
-            required
-            minlength="2"
-            maxlength="64"
             placeholder="Ingrese el acabado del producto..."
             value="<%= product.productTerminated %>"
           />
+
+          <!--Listado de errores-->
+          <div id="productTerminated_errores">
+            <ul></ul>
+          </div>
 
           <!--SKU-->
           <label class="product__inputText" for="sku"> Sku </label>
@@ -153,8 +160,6 @@
             type="text"
             name="sku"
             id="sku"
-            minlength="2"
-            maxlength="64"
             placeholder="Ingrese el sku del producto..."
             value="<%= product.sku %>"
           />
@@ -167,7 +172,6 @@
             name="categoryId"
             id="categoryId"
             class="product__inputCategory"
-            required
           >
             <% categories.forEach(category => { %> <% if (category.id ==
             product.categoryId) { %>
@@ -179,16 +183,14 @@
             <% } %> <% }) %>
           </select>
 
+          <!--Listado de errores-->
+          <div id="categoryId_errores">
+            <ul></ul>
+          </div>
+
           <!--Taxes-->
-          <label class="product__inputText" for="taxesId">
-            Impuestos <sup class="text-danger">*</sup>
-          </label>
-          <select
-            name="taxesId"
-            id="taxesId"
-            class="product__inputTaxes"
-            required
-          >
+          <label class="product__inputText" for="taxesId"> Impuestos </label>
+          <select name="taxesId" id="taxesId" class="product__inputTaxes">
             <% taxes.forEach(tax => { %> <% if (tax.id == productTaxId) { %>
             <option value="<%= tax.id %>" selected>
               <%= tax.taxeName %> %<%= tax.taxeValue %>
@@ -209,11 +211,14 @@
             class="product__inputUnits"
             name="unitsBuyes"
             id="unitsBuyes"
-            min="0"
-            required
             placeholder="Ingrese las unidades..."
             value="<%= product.unitsBuyes %>"
           />
+
+          <!--Listado de errores-->
+          <div id="unitsBuyes_errores">
+            <ul></ul>
+          </div>
 
           <!--Price gross-->
           <label class="product__inputText" for="priceGross">
@@ -224,11 +229,14 @@
             class="product__inputPriceGross"
             name="priceGross"
             id="priceGross"
-            min="0"
-            required
             placeholder="Ingrese el precio bruto..."
             value="<%= product.priceGross %>"
           />
+
+          <!--Listado de errores-->
+          <div id="priceGross_errores">
+            <ul></ul>
+          </div>
 
           <!--Price final-->
           <label class="product__inputText" for="priceFinal">
@@ -239,11 +247,14 @@
             class="product__inputPriceFinal"
             name="priceFinal"
             id="priceFinal"
-            min="0"
-            required
             placeholder="Ingrese el precio final..."
             value="<%= product.priceFinal %>"
           />
+
+          <!--Listado de errores-->
+          <div id="priceFinal_errores">
+            <ul></ul>
+          </div>
 
           <!--discount-->
           <label class="product__inputText" for="discount">
@@ -255,7 +266,6 @@
             disabled
             class="product__inputDiscount"
             id="discount"
-            min="0"
             placeholder="Esperando precio bruto y final..."
             value="<%= product.discount %>"
           />
@@ -289,5 +299,8 @@
 
     <!--FOOTER-->
     <%- include('../partials/footer.ejs') %>
+
+    <!--Scripts-->
+    <script src="/js/products/editProduct.js"></script>
   </body>
 </html>
