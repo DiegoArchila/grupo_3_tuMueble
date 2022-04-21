@@ -5,6 +5,7 @@ const indexRouter = require("./routes/mainRouts.js");
 const cartRouter = require("./routes/cartRouts.js");
 const adminRouter = require("./routes/adminRouts.js");
 const productsRouter = require("./routes/productsRouts.js");
+const productsApiRouter = require("./routes/apis/ProductsRouts.js");
 
 /* Settings */
 const PORT = process.env.PORT || 3003;
@@ -22,6 +23,9 @@ app.use(indexRouter);
 app.use(cartRouter);
 app.use(adminRouter);
 app.use(productsRouter);
+
+/* Apis Routes Asignations */
+app.use(productsApiRouter);
 
 /* Start Server */
 app.listen(PORT, () => {
