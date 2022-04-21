@@ -10,7 +10,7 @@ const ApiStatus = {
   BAD_REQUEST: {
     code: 400,
     message: "The request could not be understood by the server.",
-    name: "UNAUTHORIZED",
+    name: "BAD_REQUEST",
   },
   UNAUTHORIZED: {
     code: 401,
