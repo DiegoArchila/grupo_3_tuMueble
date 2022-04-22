@@ -7,10 +7,13 @@ const adminRouter = require("./routes/adminRouts.js");
 const productsRouter = require("./routes/productsRouts.js");
 const productsApiRouter = require("./routes/apis/ProductsRouts.js");
 const productCategoryRouter = require("./routes/apis/ProductCategoryRouts.js");
+const logger = require("morgan");
 
 /* Settings */
 const PORT = process.env.PORT || 3003;
 app.use(express.static("public"));
+app.use(logger("dev"));
+
 //app.use(bodyParser);
 
 /* Template Engine */
@@ -18,6 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", "./src/views/");
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 /* Routes Asignations */
 app.use(indexRouter);
