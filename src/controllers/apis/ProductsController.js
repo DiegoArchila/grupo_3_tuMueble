@@ -31,6 +31,10 @@ const findProduct = async (req, res) => {
   let response = [];
   let idProduct = req.params.id;
 
+  if (!idProduct) {
+    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+  }
+
   product = await productsService.findProductWithImages(idProduct);
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, product);
@@ -50,11 +54,13 @@ const findProductsByCategory = async (req, res) => {
   let productsResponse = [];
   let response = [];
 
-  if (categoryId) {
-    productsResponse = await productsService.findAllProductsByCategory(
-      categoryId
-    );
+  if (!categoryId) {
+    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
+
+  productsResponse = await productsService.findAllProductsByCategory(
+    categoryId
+  );
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productsResponse);
 
