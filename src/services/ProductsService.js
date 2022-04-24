@@ -100,33 +100,22 @@ const findAllProductsByCategory = async (categoryId) => {
  * Update a product
  *
  * @param {*} productId -Id of the product to update
- * @param {*} body  -Data for update
+ * @param {*} producto  -Data for update
  * @return {*} -Product updated
  */
-const updateProduct = async (productId, body) => {
+const updateProduct = async (productId, producto) => {
   //product data organized
-  let bodyOrder = {
-    productName: body.productName,
-    productDescription: body.productDescription,
-    productTerminated: body.productTerminated,
-    sku: body.sku,
-    categoryId: Number(body.categoryId),
-    unitsBuyes: Number(body.unitsBuyes),
-    isActive: body.isActive,
-    priceGross: Number(body.priceGross),
-    priceFinal: Number(body.priceFinal),
-    discount: Number(body.discount),
-  };
+
   let productUpdate = {};
   let productTax = {};
 
-  productUpdate = await productsRepository.update(productId, bodyOrder);
+  productUpdate = await productsRepository.update(productId, producto);
   /*await db.ProductImages.update({          
           pathImagen: file.filename,          
         },{where:{productId:productId,isMain:true}});*/
 
   productTax = await productTaxesRepository.updateProductTaxesByProductId(
-    Number(body.taxesId),
+    Number(producto.taxesId),
     productId
   );
 

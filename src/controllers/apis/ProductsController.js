@@ -83,6 +83,7 @@ const updateProduct = async (req, res) => {
   let response = [];
   let productUpdate = {};
   let body = req.body;
+  let producto = {};
 
   if (!productId) {
     return res
@@ -90,7 +91,20 @@ const updateProduct = async (req, res) => {
       .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
-  productUpdate = await productsService.updateProduct(productId, body);
+  producto = {
+    productName: body.productName,
+    productDescription: body.productDescription,
+    productTerminated: body.productTerminated,
+    sku: body.sku,
+    categoryId: Number(body.categoryId),
+    unitsBuyes: Number(body.unitsBuyes),
+    isActive: body.isActive,
+    priceGross: Number(body.priceGross),
+    priceFinal: Number(body.priceFinal),
+    discount: Number(body.discount),
+  };
+
+  productUpdate = await productsService.updateProduct(productId, producto);
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productUpdate);
 
