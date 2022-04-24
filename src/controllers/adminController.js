@@ -227,4 +227,13 @@ module.exports = {
       admin:req.session.admin
     });
   },
+  components: async(req, res) => {
+    return await res.render("./admin/components.ejs", {
+      index,
+      settingGeneral,
+      minibar,
+      user:req.session.user,
+      admin:req.session.admin
+    });
+  } 
 };

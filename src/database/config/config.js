@@ -15,7 +15,7 @@ module.exports = {
   },
   production: {
     username: "root",
-    password: null,
+    password: "Diego.Archila2812",
     database: "tumueble",
     host: "127.0.0.1",
     dialect: "mysql",
