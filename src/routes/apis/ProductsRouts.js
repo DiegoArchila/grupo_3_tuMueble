@@ -1,6 +1,7 @@
 /* Imports */
 const express = require("express");
 const router = express.Router();
+const imageSaver = require("../../lib/imageSaver.js");
 
 const productsController = require("../../controllers/apis/ProductsController.js");
 
