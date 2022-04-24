@@ -3,7 +3,9 @@ const express=require("express");
 const router=express.Router();
 
 const adminController = require("../controllers/adminController.js");
-const { validateUserAdmin } = require("../middleWares/adminMiddleware.js")
+const { validateUserAdmin } = require("../middleWares/adminMiddleware.js");
+
+const userAPIController = require("../controllers/api/userAPIController.js")
 
 
 router.get("/admin/dashboard", validateUserAdmin, adminController.admin);
@@ -25,6 +27,11 @@ router.post("/admin/products/create", validateUserAdmin, adminController.createP
  * Admin Components
  */
  router.get("/admin/components", validateUserAdmin, adminController.components);
+
+ /**
+ * Admin Users Gender
+ */
+  router.get("/admin/users/genders/create", userAPIController.createGender);
 
 
 

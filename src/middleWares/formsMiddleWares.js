@@ -6,7 +6,7 @@ const index = require("../databases/index.json");
 const { minibar } =require("../lib/complements.js");
 const { validationResult } = require("express-validator");
 const { uploadFile } = require("../lib/formats.js");
-
+const db = require("../database/models");
 const validationsCreateUser=[
     check("firstName")
         .notEmpty().withMessage("Debes completar el campo \"Nombres\" ")

@@ -9,21 +9,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/DiegoArchila/grupo_3_tuMueble.git"
+    "url": "git@github.com:DiegoArchila/tumueble.git"
   },
-  "author": "Stiven  Peña, Juan Felipe Jaramillo, Ricardo Andres Mantilla Sanchez, Diego Archila.",
+  "author": "Diego Archila.",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DiegoArchila/grupo_3_tuMueble/issues"
+    "url": "https://github.com/DiegoArchila/tumueble"
   },
-  "homepage": "https://github.com/DiegoArchila/grupo_3_tuMueble#readme",
+  "homepage": "https://github.com/DiegoArchila/tumueble#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
-    "multer": "^1.4.4"
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.17.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

@@ -16,11 +16,9 @@ app.use(session({secret:"asdfi56465f46445641j4546d54f6g"}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
 /* Template Engine */
 app.set("view engine", "ejs");
 app.set("views", "./src/views/");
-
 
 /* Routes Asignations */
 app.use(indexRouter);

@@ -330,9 +330,9 @@
 									},
 									"fontColor": "#330066",
 									"font": "Arial;13;0",
-									"left": 295,
+									"left": 303,
 									"top": 128,
-									"width": 96.83349609375,
+									"width": 81.64990234375,
 									"height": 13,
 									"autoResize": true,
 									"alpha": 0.8433044450533482,
@@ -341,7 +341,7 @@
 										"$ref": "AAAAAAF/hBNc3fhOBG4="
 									},
 									"edgePosition": 1,
-									"text": "genders of users"
+									"text": "usersGenders"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -654,7 +654,7 @@
 										"$ref": "AAAAAAF/hDHdOPkWXgQ="
 									},
 									"edgePosition": 1,
-									"text": "Category of emails"
+									"text": "emailsCategory"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -732,17 +732,17 @@
 									},
 									"fontColor": "#330066",
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 256,
+									"left": 271,
+									"top": 272,
 									"width": 88.86083984375,
 									"height": 13,
-									"alpha": -4.693160232760539,
-									"distance": 52.009614495783374,
+									"alpha": -4.03186717801311,
+									"distance": 27.018512172212592,
 									"hostEdge": {
 										"$ref": "AAAAAAF/hDywkvlizfc="
 									},
 									"edgePosition": 1,
-									"text": "Emails of users"
+									"text": "usersEmails"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -826,7 +826,7 @@
 									"top": 21,
 									"width": 290.04443359375,
 									"height": 13,
-									"text": "locationsUsers"
+									"text": "usersLocations"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -2684,7 +2684,7 @@
 									"top": 613,
 									"width": 259.68359375,
 									"height": 13,
-									"text": "cart"
+									"text": "carts"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -3968,7 +3968,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/g9WfBffVGF8="
 							},
-							"name": "genders of users",
+							"name": "usersGenders",
 							"documentation": "One gender  can  belongs to  many  users and many users  belongs to one gender.",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
@@ -4000,7 +4000,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/g9WfBffVGF8="
 							},
-							"name": "Emails of users",
+							"name": "usersEmails",
 							"documentation": "One user can have many emails and many email belongs to one user.",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
@@ -4259,7 +4259,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/hCht0/jY2wM="
 							},
-							"name": "Category of emails",
+							"name": "emailsCategory",
 							"documentation": "One category  can have many emails and many emails belongs to one category.",
 							"end1": {
 								"_type": "ERDRelationshipEnd",
@@ -4329,7 +4329,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFLzntJC6EktCk="
 					},
-					"name": "locationsUsers",
+					"name": "usersLocations",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
@@ -5128,7 +5128,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFLzntJC6EktCk="
 					},
-					"name": "cart",
+					"name": "carts",
 					"columns": [
 						{
 							"_type": "ERDColumn",

@@ -1,7 +1,9 @@
 const { minibar, index, settingGeneral } =require("../lib/complements.js");
 const userOrders=require("../databases/business/usersOrders.json");
 const { toCOP } = require("../lib/formats.js");
+const db =require("../database/models/");
 const { findByPk } = require("../models/users.js");
+const User = db.User;
 module.exports={
     dashboard:async(req,res) =>{
         try {

@@ -1,6 +1,8 @@
 /*IMPORTS*/
 const users = "../databases/business/users.json";
 const { toObject, createJSON, encrypt, comparePassword } = require("../lib/formats.js");
+const db =require("../database/models/");
+const User = db.User;
 
 
 /*FUNCTIONS*/
@@ -17,9 +19,8 @@ const getAlls = () => {
  * @param {*} id 
  * @returns User found
  */
-const findByPk = (id) =>{
-    let allsUsers=getAlls();
-    let user=allsUsers.find(u=>u.id===id);
+const findByPk = async(id) =>{
+    let user= await User.findByPk(id);
     return user;
 }
 
@@ -146,7 +147,11 @@ const create = (user, imagen)=>{
  */
 const validateUser = (inputEmail, password) =>{
 
-    let user=findByField("email",inputEmail);
+    let user= User.findAll({
+        where: {
+            email:inputEmail
+        }
+    });
 
     if(user!=undefined &&
         (user.email===inputEmail && 
