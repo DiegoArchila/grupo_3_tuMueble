@@ -32,7 +32,9 @@ const findProduct = async (req, res) => {
   let idProduct = req.params.id;
 
   if (!idProduct) {
-    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
   product = await productsService.findProductWithImages(idProduct);
@@ -55,7 +57,9 @@ const findProductsByCategory = async (req, res) => {
   let response = [];
 
   if (!categoryId) {
-    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
   productsResponse = await productsService.findAllProductsByCategory(
@@ -81,7 +85,9 @@ const updateProduct = async (req, res) => {
   let body = req.body;
 
   if (!productId) {
-    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
   productUpdate = await productsService.updateProduct(productId, body);
@@ -104,7 +110,9 @@ const deleteProduct = async (req, res) => {
   let deleteSuccess = false;
 
   if (!productId) {
-    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
   deleteSuccess = await productsService.deleteProduct(productId);
