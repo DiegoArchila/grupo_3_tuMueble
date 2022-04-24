@@ -15,43 +15,39 @@ let saveProductImages = imageSaver.saveImages("public/img/store/products");
 const urlProducts = "/api/products";
 
 //Validaciones
-let validacionesEditProduct,
-  validacionesCreateProduct = Validations([
+let validacionesEditProduct = Validations([
+  [
+    "productName",
     [
-      "productName",
-      [
-        ValidationTypes.notEmpty,
-        [ValidationTypes.isLength, { min: 2, max: 128 }],
-      ],
+      ValidationTypes.notEmpty,
+      [ValidationTypes.isLength, { min: 2, max: 128 }],
     ],
+  ],
+  [
+    "productDescription",
     [
-      "productDescription",
-      [
-        ValidationTypes.notEmpty,
-        [ValidationTypes.isLength, { min: 2, max: 512 }],
-      ],
+      ValidationTypes.notEmpty,
+      [ValidationTypes.isLength, { min: 2, max: 512 }],
     ],
-    [
-      "productTerminated",
-      [
-        ValidationTypes.notEmpty,
-        [ValidationTypes.isLength, { min: 2, max: 64 }],
-      ],
-    ],
-    ["categoryId", [ValidationTypes.notEmpty, ValidationTypes.isInt]],
-    [
-      "unitsBuyes",
-      [ValidationTypes.notEmpty, [ValidationTypes.isInt, { min: 0, max: 999 }]],
-    ],
-    [
-      "priceGross",
-      [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
-    ],
-    [
-      "priceFinal",
-      [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
-    ],
-  ]);
+  ],
+  [
+    "productTerminated",
+    [ValidationTypes.notEmpty, [ValidationTypes.isLength, { min: 2, max: 64 }]],
+  ],
+  ["categoryId", [ValidationTypes.notEmpty, ValidationTypes.isInt]],
+  [
+    "unitsBuyes",
+    [ValidationTypes.notEmpty, [ValidationTypes.isInt, { min: 0, max: 999 }]],
+  ],
+  [
+    "priceGross",
+    [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
+  ],
+  [
+    "priceFinal",
+    [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
+  ],
+]);
 
 //All products
 router.get(`${urlProducts}`, productsController.findAll);
@@ -78,7 +74,7 @@ router.post(`${urlProducts}/delete/:id`, productsController.deleteProduct);
 //Create a product
 router.post(
   `${urlProducts}/create`,
-  validacionesCreateProduct,
+  validacionesEditProduct,
   saveProductImages.single("imageMain"),
   productsController.createProduct
 );
