@@ -68,11 +68,11 @@ const findProductsByCategory = async (req, res) => {
 };
 
 /**
- * Return all products by category
+ * Return product update
  *
  * @param {*} req   - is an object containing information about the HTTP request that raised the event
  * @param {*} res   - to send back the desired HTTP response
- * @return {*} response  -Json with the product update by category and aditional api data
+ * @return {*} response  -Json with the product update and aditional api data
  */
 const updateProduct = async (req, res) => {
   let productId = req.params.id;
@@ -91,9 +91,37 @@ const updateProduct = async (req, res) => {
   return res.status(response.status).json(response);
 };
 
+/**
+ * Delete product
+ *
+ * @param {*} req   - is an object containing information about the HTTP request that raised the event
+ * @param {*} res   - to send back the desired HTTP response
+ * @return {*} Status
+ */
+const deleteProduct = async (req, res) => {
+  let productId = req.params.id;
+  let response = [];
+  let deleteSuccess = false;
+
+  if (!productId) {
+    return res.status(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+  }
+
+  deleteSuccess = await productsService.deleteProduct(productId);
+
+  if (!deleteSuccess) {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST);
+  } else {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK);
+  }
+
+  return res.status(response.status).json(response);
+};
+
 module.exports = {
   findAll,
   findProduct,
   findProductsByCategory,
   updateProduct,
+  deleteProduct,
 };

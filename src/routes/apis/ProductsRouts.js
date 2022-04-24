@@ -21,4 +21,6 @@ router.get(
 //Edit a product
 router.post(`${urlProducts}/edit/:id`, productsController.updateProduct);
 
+router.post(`${urlProducts}/delete/:id`, productsController.deleteProduct);
+
 module.exports = router;

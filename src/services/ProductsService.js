@@ -133,9 +133,35 @@ const updateProduct = async (productId, body) => {
   return productUpdate;
 };
 
+/**
+ * Delete a product by id
+ *
+ * @param {number} productId -Id of the product or delete
+ * @return {boolean} -Return true if the delete of the product and there children was success
+ */
+const deleteProduct = async (productId) => {
+  //let principalImage = {};
+  /*principalImage = await db.ProductImages.findOne({
+          where: { productId, isMain: true },
+        });
+        if (principalImage.pathImagen) {
+          functions.eliminarArchivo(
+            `/public/img/store/products/${principalImage.pathImagen}`
+          );
+        }*/
+  let deleteSuccess = false;
+
+  deleteSuccess = await productImagesRepository.deleteWhere({ productId });
+  deleteSuccess = await productTaxesRepository.deleteWhere({ productId });
+  deleteSuccess = await productsRepository.deleteWhere({ id: productId });
+
+  return deleteSuccess;
+};
+
 module.exports = {
   findAllWithMainImage,
   findProductWithImages,
   findAllProductsByCategory,
   updateProduct,
+  deleteProduct,
 };

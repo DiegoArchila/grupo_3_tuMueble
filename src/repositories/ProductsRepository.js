@@ -134,9 +134,38 @@ const update = async (productId, product) => {
   return productUpdate;
 };
 
+/**
+ * Delete a Product by where condition
+ *
+ * @param {*} where -The where condition for the delete
+ * @return {boolean}  -Return true if the delete was success
+ */
+const deleteWhere = async (where) => {
+  if (!where) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "Specify a where condicion for delete");
+    return false;
+  }
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    `Request for delete Product where: ${where}`
+  );
+
+  try {
+    await db.Product.destroy({ where });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The Product was delete`);
+
+  return true;
+};
+
 module.exports = {
   findAll,
   findByPk,
   findAllByCategory,
   update,
+  deleteWhere,
 };
