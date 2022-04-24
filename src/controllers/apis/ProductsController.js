@@ -118,10 +118,62 @@ const deleteProduct = async (req, res) => {
   return res.status(response.status).json(response);
 };
 
+/**
+ * Create product
+ *
+ * @param {*} req   - is an object containing information about the HTTP request that raised the event
+ * @param {*} res   - to send back the desired HTTP response
+ * @return {*} Status
+ */
+const createProduct = async (req, res, next) => {
+  let body = req.body;
+  let file = req.file;
+  let response = [];
+  let producto = {};
+  let newProducto = {};
+
+  if (!file) {
+    const error = new Error("Por favor seleccione un archivo");
+    error.httpStatusCode = 400;
+    return next(error);
+  }
+
+  if (!body) {
+    return res
+      .status(ApiFormats.ApiStatus.BAD_REQUEST.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST));
+  }
+
+  producto = {
+    productName: body.productName,
+    productDescription: body.productDescription,
+    productTerminated: body.productTerminated,
+    sku: body.sku,
+    categoryId: Number(body.categoryId),
+    unitsBuyes: Number(body.unitsBuyes),
+    unitsSelled: 0,
+    isActive: body.isActive,
+    priceGross: Number(body.priceGross),
+    priceFinal: Number(body.priceFinal),
+    discount: Number(body.discount),
+  };
+
+  newProducto = await productsService.createProduct(producto, file);
+
+  if (!newProducto) {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST);
+  } else {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, newProducto);
+  }
+
+  return res.status(response.status).json(response);
+};
+
 module.exports = {
   findAll,
   findProduct,
   findProductsByCategory,
   updateProduct,
   deleteProduct,
+  createProduct,
 };

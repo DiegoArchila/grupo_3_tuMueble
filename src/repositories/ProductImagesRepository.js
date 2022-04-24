@@ -172,10 +172,31 @@ const deleteWhere = async (where) => {
   return true;
 };
 
+/**
+ * Create a productImage
+ *
+ * @param {*} productImage -ProductImage to create
+ * @return {*} -New productImage
+ */
+const create = async (productImage) => {
+  let newProductImage = {};
+  Log.consoleLogs(Log.LogsTypes.INFO, `Request for create productsImage`);
+
+  try {
+    newProductImage = await db.ProductImages.create(productImage);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  return newProductImage;
+};
+
 module.exports = {
   findAll,
   findAllByIdProductsAndIsMain,
   findByPk,
   findAllByProductIdOrderByIsMain,
   deleteWhere,
+  create,
 };

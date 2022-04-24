@@ -162,10 +162,36 @@ const deleteWhere = async (where) => {
   return true;
 };
 
+/**
+ * Create a product
+ *
+ * @param {*} producto  -Product to create
+ * @return {*} -The new product
+ */
+const create = async (producto) => {
+  if (!producto) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "No data for create a product");
+    return null;
+  }
+  let newProducto = {};
+  Log.consoleLogs(Log.LogsTypes.INFO, `Request for create Product`);
+  try {
+    newProducto = await db.Product.create(producto);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The Product was create`);
+
+  return newProducto;
+};
+
 module.exports = {
   findAll,
   findByPk,
   findAllByCategory,
   update,
   deleteWhere,
+  create,
 };

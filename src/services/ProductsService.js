@@ -158,10 +158,36 @@ const deleteProduct = async (productId) => {
   return deleteSuccess;
 };
 
+/**
+ * Create a new product
+ *
+ * @param {*} producto  -Product to create
+ * @param {*} fileImage -Main image
+ * @return {*}  -Product create
+ */
+const createProduct = async (producto, fileImage) => {
+  let newProducto = {};
+
+  newProducto = await productsRepository.create(producto);
+  await productImagesRepository.create({
+    isMain: 1,
+    pathImagen: fileImage.filename,
+    productId: newProducto.id,
+  });
+
+  await productTaxesRepository.create({
+    taxeId: Number(producto.taxesId),
+    productId: newProducto.id,
+  });
+
+  return newProducto;
+};
+
 module.exports = {
   findAllWithMainImage,
   findProductWithImages,
   findAllProductsByCategory,
   updateProduct,
   deleteProduct,
+  createProduct,
 };

@@ -126,9 +126,31 @@ const deleteWhere = async (where) => {
   return true;
 };
 
+/**
+ * Create a productTaxes
+ *
+ * @param {*} productTax  -ProductTax to create
+ * @return {*}  -New productTax
+ */
+const create = async (productTax) => {
+  Log.consoleLogs(Log.LogsTypes.INFO, `Request for create ProductTaxes`);
+  let newProductTax = {};
+  try {
+    newProductTax = await db.ProductTaxes.create(productTax);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The ProductTaxes was create`);
+
+  return newProductTax;
+};
+
 module.exports = {
   findAll,
   findByPk,
   updateProductTaxesByProductId,
   deleteWhere,
+  create,
 };
