@@ -29,6 +29,24 @@
   letter-spacing: 1px;
 }
 
+.menu-desplegable .menu li button {
+  display: block;
+  color: #fff;
+  background-color: var(--color-bg-primary);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 10px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+}
+
+.menu-desplegable .menu li button:active {
+  background-color: var(--color-orange);
+}
+
 .menu-desplegable .menu li {
   float: left;
   margin: 0;

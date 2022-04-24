@@ -1,11 +1,10 @@
 //------------------------- Imports
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize({dialect:"mysql"});
 
 //------------------------- Settings
-const initModel = () => {
+const Tax = (sequelize) => {
   //Set the Alias
-  const alias = "UserGender";
+  const alias = "Tax";
 
   //Sets the columns
   const cols = {
@@ -15,22 +14,28 @@ const initModel = () => {
       primaryKey: true,
       allowNull: false,
     },
-    gender: {
+    taxeName: {
       type: DataTypes.STRING(64),
       allowNull: false,
-      unique: true,
+    },
+    taxeDescription: {
+      type: DataTypes.STRING(255),
+    },
+    taxeValue: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+    },
+    isActive: {
+      type: DataTypes.TINYINT,
     },
     notes: {
       type: DataTypes.STRING(255),
-      allowNull: true,
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
   };
 
   //Sets configurations the from model or table
   const config = {
-    tableName: "usersGender",
+    tableName: "taxes",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
@@ -38,12 +43,10 @@ const initModel = () => {
   };
 
   //------------------------- Asignation
-  const UserGender = sequelize.define(alias, cols, config);
-
-  //------------------------- Relationship
-
-  return UserGender;
+  return sequelize.define(alias, cols, config);
 };
 
+//------------------------- Relationship
+
 //------------------------- Return
-module.exports = initModel;
+module.exports = Tax;

@@ -5,8 +5,7 @@ const sequelize = new Sequelize({ dialect: "mysql" });
 //------------------------- Init Model
 const initModel = function () {
 
- //------------------------- Settings
-
+//------------------------- Settings
   //Set the Alias
   const alias = "User";
 

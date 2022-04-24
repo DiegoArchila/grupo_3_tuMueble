@@ -1,11 +1,10 @@
 //------------------------- Imports
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize({dialect:"mysql"});
 
 //------------------------- Settings
-const initModel = () => {
+const ProductImages = (sequelize) => {
   //Set the Alias
-  const alias = "UserGender";
+  const alias = "ProductImages";
 
   //Sets the columns
   const cols = {
@@ -15,22 +14,25 @@ const initModel = () => {
       primaryKey: true,
       allowNull: false,
     },
-    gender: {
-      type: DataTypes.STRING(64),
-      allowNull: false,
-      unique: true,
+    isMain: {
+      type: DataTypes.TINYINT,
     },
-    notes: {
+    imagenDescription: {
       type: DataTypes.STRING(255),
-      allowNull: true,
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
+    pathImagen: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   };
 
   //Sets configurations the from model or table
   const config = {
-    tableName: "usersGender",
+    tableName: "productsImages",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
@@ -38,12 +40,15 @@ const initModel = () => {
   };
 
   //------------------------- Asignation
-  const UserGender = sequelize.define(alias, cols, config);
-
-  //------------------------- Relationship
-
-  return UserGender;
+  return sequelize.define(alias, cols, config);
 };
 
+//------------------------- Relationship
+ProductImages.associations = function (models) {
+  ProductImages.belongsTo(models.Product, {
+    as: "products",
+    foreignKey: "productId",
+  });
+};
 //------------------------- Return
-module.exports = initModel;
+module.exports = ProductImages;

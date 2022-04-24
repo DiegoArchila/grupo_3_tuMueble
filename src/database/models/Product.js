@@ -1,11 +1,10 @@
 //------------------------- Imports
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize({dialect:"mysql"});
 
 //------------------------- Settings
-const UserLocation = () => {
+const Product = (sequelize) => {
   //Set the Alias
-  const alias = "UserPhone";
+  const alias = "Product";
 
   //Sets the columns
   const cols = {
@@ -15,43 +14,51 @@ const UserLocation = () => {
       primaryKey: true,
       allowNull: false,
     },
-    country: {
+    productName: {
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    ProvinceState: {
-      type: DataTypes.STRING(128),
-      allowNull: false,
-    },
-    cityTown: {
-      type: DataTypes.STRING(128),
-      allowNull: false,
-    },
-    addressLine: {
+    productDescription: {
       type: DataTypes.STRING(255),
+    },
+    sku: {
+      type: DataTypes.STRING(64),
+    },
+    productTerminated: {
+      type: DataTypes.STRING(64),
       allowNull: false,
     },
-    notes: {
-      type: DataTypes.STRING(250),
+    categoryId: {
+      type: DataTypes.INTEGER,
     },
-    isMain: {
+    priceGross: {
+      type: DataTypes.BIGINT,
+    },
+    priceFinal: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    discount: {
+      type: DataTypes.INTEGER,
+    },
+    unitsBuyes: {
+      type: DataTypes.INTEGER,
+    },
+    unitsSelled: {
+      type: DataTypes.INTEGER,
+    },
+    isActive: {
       type: DataTypes.TINYINT,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     notes: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      type: DataTypes.STRING(255),
     },
-    created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
   };
 
   //Sets configurations the from model or table
   const config = {
-    tableName: "usersLocations",
+    tableName: "products",
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
@@ -63,12 +70,12 @@ const UserLocation = () => {
 };
 
 //------------------------- Relationship
-UserLocation.associations = function (models) {
-  UserLocation.belongsTo(models.User, {
-    as: "users",
-    foreignKey: "userId",
+Product.associate = function (models) {
+  Product.belongsTo(models.ProductCategory, {
+    as: "category",
+    foreignKey: "categoryId",
   });
 };
 
 //------------------------- Return
-module.exports = UserLocation;
+module.exports = Product;

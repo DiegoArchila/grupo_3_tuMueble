@@ -1,12 +1,11 @@
 //------------------------- Imports
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize({dialect:"mysql"});
 
-//------------------------- Init Model
-const initModel = function (sequelize) {
-  //------------------------- Settings
-
+//------------------------- Settings
+const initModel = () => {
   //Set the Alias
-  const alias = "PhoneCategory";
+  const alias = "UserPhone";
 
   //Sets the columns
   const cols = {

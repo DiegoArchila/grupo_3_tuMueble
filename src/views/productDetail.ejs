@@ -10,15 +10,16 @@
     <div class="content">
       <div class="card">
         <div class="slider-container">
+          <% if (product.images) { %>
           <ul class="slider">
             <% for( let i = 0; i < product.images.length; i++ ) { %>
             <li id="image<%= i + 1 %>">
               <div class="card-image">
                 <img
-                  src="<%= product.images[i].path %> "
+                  src="/img/store/products/<%= product.images[i].pathImagen %>"
                   height="300px"
                   width="300px"
-                  alt="<%= product.name %> "
+                  alt="<%= product.productName %> "
                 />
               </div>
             </li>
@@ -29,28 +30,29 @@
             <li><a href="#image<%= i + 1 %>"><%= i+1 %> </a></li>
             <% } %>
           </ul>
+          <% } %>
         </div>
         <div class="card-body">
           <div class="grid">
             <div class="row">
-              <p class="title"><%= product.name %></p>
+              <p class="title"><%= product.productName %></p>
             </div>
             <div class="detail">
-              <% if (product.Description) { %>
+              <% if (product.productDescription) { %>
               <h1 class="detail-titulo">Descripción:</h1>
-              <p class="detail-content"><%= product.Description %></p>
-              <% } %> <% if (product.terminated) { %>
+              <p class="detail-content"><%= product.productDescription %></p>
+              <% } %> <% if (product.productterminated) { %>
               <h1 class="detail-titulo">Acabado:</h1>
-              <p class="detail-content"><%= product.terminated %></p>
+              <p class="detail-content"><%= product.productTerminated %></p>
               <% } %> <% if (product.sku) { %>
               <h1 class="detail-titulo">SKU:</h1>
               <p class="detail-content"><%= product.sku %></p>
               <% } %> <% if (product.category) { %>
               <h1 class="detail-titulo">Categoria:</h1>
               <p class="detail-content"><%= product.category %></p>
-              <% } %> <% if (product.stock) { %>
+              <% } %> <% if (product.unitsBuyes) { %>
               <h1 class="detail-titulo">Disponibles:</h1>
-              <p class="detail-content"><%= product.stock %></p>
+              <p class="detail-content"><%= product.unitsBuyes %></p>
               <% } %>
             </div>
             <div class="row">
@@ -64,15 +66,11 @@
               </div>
               <div class="column">
                 <div class="cost">
-                  <p class="price">
-                    <%=
-                    toCOP.format(Math.round(product.priceFinal*(1-(((product.discount>0)?product.discount:0)/100))))
-                    %>
-                  </p>
+                  <p class="price"><%= toCOP.format(product.priceFinal) %></p>
                   <% if (product.discount>0) { %>
                   <p class="offer"><%= product.discount %> % OFF</p>
                   <p class="price-normal">
-                    <%= toCOP.format(product.priceFinal) %>
+                    <%= toCOP.format(product.priceGross) %>
                   </p>
                   <% } %>
                 </div>

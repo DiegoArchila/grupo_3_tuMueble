@@ -61,10 +61,10 @@ const initModel = function () {
      /**
      * Email belongs to User
      */
-      UserEmail.belongsTo(models.EmailCategory,{
-        as:"emailsCategory",
-        foreignKey:"categoryId"
-      });
+      // UserEmail.belongsTo(models.EmailCategory,{
+      //   as:"emailsCategory",
+      //   foreignKey:"categoryId"
+      // });
   }
 
 

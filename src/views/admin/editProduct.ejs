@@ -30,10 +30,9 @@
         <!-- Form new product  -->
         <form
           class="product__form"
-          action="/admin/products/create"
-          enctype="multipart/form-data"
+          action="/admin/products/edit/<%= product.id %>"
           method="post"
-          id="createProduct"
+          id="editProduct"
         >
           <!--Container images-->
           <div class="product__imagesContainer">
@@ -45,20 +44,16 @@
                             <img class="product__imagen" src="/img/store/products/comedores/carson_6puestos-scaled.jpg" alt="Acá descripccion de la imagen">
                             <img class="product__imagen" src="/img/store/products/salas/SalaMilan.jpg" alt="Acá descripccion de la imagen">
                         </div>
-                        
-                        <input type="file" name="" id="" class="product__imagesButtonAdd" multiple accept="image/png, .jpg, .jpeg, image/gif" required>
-                        
-                        <label class="product__inputText" for="product__imagesContainer">
-                            Propiedades
-                        </label>
-                        <textarea class="product__imagesDescription" name="imagenDescription" id="" rows="3" maxlength="255"
-                        placeholder="Ingrese una descripción de la imagen..."></textarea>
-            
                         -->
 
             <label class="product__inputText" for="imageMain">
               Imagen principal <sup class="text-danger">*</sup>
             </label>
+            <img
+              src="/img/store/products/<%= imagePrincipal.pathImagen %>"
+              alt=""
+              class="product__imagen"
+            />
             <input
               type="file"
               name="imageMain"
@@ -115,7 +110,9 @@
             name="productName"
             id="productName"
             placeholder="Ingrese el nombre del producto..."
+            value="<%= product.productName %>"
           />
+
           <!--Listado de errores-->
           <div id="productName_errores">
             <ul></ul>
@@ -131,7 +128,9 @@
             id="productDescription"
             rows="4"
             placeholder="Ingrese la descripción del producto..."
-          ></textarea>
+          >
+<%= product.productDescription %></textarea
+          >
 
           <!--Listado de errores-->
           <div id="productDescription_errores">
@@ -147,6 +146,7 @@
             name="productTerminated"
             id="productTerminated"
             placeholder="Ingrese el acabado del producto..."
+            value="<%= product.productTerminated %>"
           />
 
           <!--Listado de errores-->
@@ -160,9 +160,8 @@
             type="text"
             name="sku"
             id="sku"
-            minlength="2"
-            maxlength="64"
             placeholder="Ingrese el sku del producto..."
+            value="<%= product.sku %>"
           />
 
           <!--Category-->
@@ -174,10 +173,14 @@
             id="categoryId"
             class="product__inputCategory"
           >
-            <option value="" disabled selected>Seleccione</option>
-            <% categories.forEach(category => { %>
+            <% categories.forEach(category => { %> <% if (category.id ==
+            product.categoryId) { %>
+            <option value="<%= category.id %>" selected>
+              <%= category.category %>
+            </option>
+            <% }else{ %>
             <option value="<%= category.id %>"><%= category.category %></option>
-            <% }) %>
+            <% } %> <% }) %>
           </select>
 
           <!--Listado de errores-->
@@ -188,8 +191,11 @@
           <!--Taxes-->
           <label class="product__inputText" for="taxesId"> Impuestos </label>
           <select name="taxesId" id="taxesId" class="product__inputTaxes">
-            <option value="" disabled selected>Seleccione</option>
-            <% taxes.forEach(tax => { %>
+            <% taxes.forEach(tax => { %> <% if (tax.id == productTaxId) { %>
+            <option value="<%= tax.id %>" selected>
+              <%= tax.taxeName %> %<%= tax.taxeValue %>
+            </option>
+            <% } %>
             <option value="<%= tax.id %>">
               <%= tax.taxeName %> %<%= tax.taxeValue %>
             </option>
@@ -206,6 +212,7 @@
             name="unitsBuyes"
             id="unitsBuyes"
             placeholder="Ingrese las unidades..."
+            value="<%= product.unitsBuyes %>"
           />
 
           <!--Listado de errores-->
@@ -223,6 +230,7 @@
             name="priceGross"
             id="priceGross"
             placeholder="Ingrese el precio bruto..."
+            value="<%= product.priceGross %>"
           />
 
           <!--Listado de errores-->
@@ -240,6 +248,7 @@
             name="priceFinal"
             id="priceFinal"
             placeholder="Ingrese el precio final..."
+            value="<%= product.priceFinal %>"
           />
 
           <!--Listado de errores-->
@@ -257,14 +266,15 @@
             disabled
             class="product__inputDiscount"
             id="discount"
-            min="0"
             placeholder="Esperando precio bruto y final..."
+            value="<%= product.discount %>"
           />
 
           <label class="product__inputText" for="isActive">
             Producto activo
           </label>
-          <input type="checkbox" name="isActive" id="isActive" checked />
+          <input type="checkbox" name="isActive" id="isActive" <% if
+          (product.isActive == 1) { %> checked <% } %> />
 
           <!--buttons-->
           <div class="flx-ctr">
@@ -279,7 +289,7 @@
               type="submit"
               class="product__buttons product__buttonSend flx-ctr"
             >
-              Crear
+              Editar
               <i class="iconify" data-icon="mdi:cube-send"></i>
             </button>
           </div>
@@ -291,7 +301,6 @@
     <%- include('../partials/footer.ejs') %>
 
     <!--Scripts-->
-    <script src="/js/products/createProduct.js" type="module"></script>
-    <script src="/js/validations/validations.js" type="module"></script>
+    <script src="/js/products/editProduct.js"></script>
   </body>
 </html>

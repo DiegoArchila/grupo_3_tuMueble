@@ -1,12 +1,11 @@
 //------------------------- Imports
-const { DataTypes } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize({dialect:"mysql"});
 
-//------------------------- Init Model
-const initModel = function (sequelize) {
-  //------------------------- Settings
-
+//------------------------- Settings
+const initModel = (sequelize) => {
   //Set the Alias
-  const alias = "EmailCategory";
+  const alias = "UserPhone";
 
   //Sets the columns
   const cols = {
@@ -26,7 +25,6 @@ const initModel = function (sequelize) {
       allowNull: true,
     },
     created_at: DataTypes.DATE,
-    updated_at: DataTypes.DATE,
   };
 
   //Sets configurations the from model or table
@@ -48,3 +46,4 @@ const initModel = function (sequelize) {
 
 //------------------------- Return
 module.exports = initModel;
+
