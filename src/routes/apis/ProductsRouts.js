@@ -18,4 +18,7 @@ router.get(
   productsController.findProductsByCategory
 );
 
+//Edit a product
+router.post(`${urlProducts}/edit/:id`, productsController.updateProduct);
+
 module.exports = router;

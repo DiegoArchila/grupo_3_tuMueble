@@ -100,8 +100,43 @@ const findAllByCategory = async (categoryId) => {
   return allProducts;
 };
 
+/**
+ * Update product by id
+ *
+ * @param {number} productId  -Product id
+ * @param {*} product -Update data
+ * @return {*} -Product update
+ */
+const update = async (productId, product) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    "Request for update product by id: " + productId
+  );
+  let productUpdate = {};
+  try {
+    productUpdate = await db.Product.update(product, {
+      where: { id: productId },
+    });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  if (productUpdate) {
+    Log.consoleLogs(
+      Log.LogsTypes.SUCCESS,
+      `product has been update: ${productUpdate}`
+    );
+  } else {
+    Log.consoleLogs(Log.LogsTypes.WARM, `product not update`);
+  }
+
+  return productUpdate;
+};
+
 module.exports = {
   findAll,
   findByPk,
   findAllByCategory,
+  update,
 };

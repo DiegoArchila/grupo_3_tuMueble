@@ -1,6 +1,7 @@
 const productsRepository = require("../repositories/ProductsRepository.js");
 const productImagesRepository = require("../repositories/ProductImagesRepository.js");
 const productCategoryRepository = require("../repositories/ProductCategoryRepository.js");
+const productTaxesRepository = require("../repositories/ProductTaxesRepository.js");
 
 /**
  * Return all products
@@ -95,8 +96,46 @@ const findAllProductsByCategory = async (categoryId) => {
   return productsResponse;
 };
 
+/**
+ * Update a product
+ *
+ * @param {*} productId -Id of the product to update
+ * @param {*} body  -Data for update
+ * @return {*} -Product updated
+ */
+const updateProduct = async (productId, body) => {
+  //product data organized
+  let bodyOrder = {
+    productName: body.productName,
+    productDescription: body.productDescription,
+    productTerminated: body.productTerminated,
+    sku: body.sku,
+    categoryId: Number(body.categoryId),
+    unitsBuyes: Number(body.unitsBuyes),
+    isActive: body.isActive,
+    priceGross: Number(body.priceGross),
+    priceFinal: Number(body.priceFinal),
+    discount: Number(body.discount),
+  };
+  let productUpdate = {};
+  let productTax = {};
+
+  productUpdate = await productsRepository.update(productId, bodyOrder);
+  /*await db.ProductImages.update({          
+          pathImagen: file.filename,          
+        },{where:{productId:productId,isMain:true}});*/
+
+  productTax = await productTaxesRepository.updateProductTaxesByProductId(
+    Number(body.taxesId),
+    productId
+  );
+
+  return productUpdate;
+};
+
 module.exports = {
   findAllWithMainImage,
   findProductWithImages,
   findAllProductsByCategory,
+  updateProduct,
 };
