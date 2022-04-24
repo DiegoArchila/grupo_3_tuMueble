@@ -1,11 +1,12 @@
 const { check } = require("express-validator");
 
-/** @type {string}  -Tipos de validaciones */
+/** @type {[string]}  -Tipos de validaciones */
 const ValidationTypes = {
   notEmpty: "notEmpty",
   isLength: "isLength",
   isEmail: "isEmail",
   isInt: "isInt",
+  isFloat: "isFloat",
 };
 
 /**
@@ -53,6 +54,31 @@ const Validations = (validactions) => {
         validationAux
           .isInt()
           .withMessage(`${formatoMensaje} debe ser un numero entero.`);
+      } else if (validationType[0] === ValidationTypes.isInt) {
+        validationAux
+          .isInt(validationType[1])
+          .withMessage(
+            `${formatoMensaje} debe estar entre: ${
+              validationType[1].min ? "Minimo = " + validationType[1].min : ""
+            } ${
+              validationType[1].max ? "Maximo = " + validationType[1].max : ""
+            }.`
+          );
+      }
+      if (validationType === ValidationTypes.isFloat) {
+        validationAux
+          .isFloat()
+          .withMessage(`${formatoMensaje} debe ser un numero.`);
+      } else if (validationType[0] === ValidationTypes.isFloat) {
+        validationAux
+          .isFloat(validationType[1])
+          .withMessage(
+            `${formatoMensaje} debe estar entre: ${
+              validationType[1].min ? "Minimo = " + validationType[1].min : ""
+            } ${
+              validationType[1].max ? "Maximo = " + validationType[1].max : ""
+            }.`
+          );
       }
       if (validationType === ValidationTypes.isEmail) {
         validationAux

@@ -2,6 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const imageSaver = require("../../lib/imageSaver.js");
+const {
+  ValidationTypes,
+  Validations,
+} = require("../../middleWares/Validations.js");
 
 const productsController = require("../../controllers/apis/ProductsController.js");
 
@@ -9,6 +13,45 @@ const productsController = require("../../controllers/apis/ProductsController.js
 let saveProductImages = imageSaver.saveImages("public/img/store/products");
 
 const urlProducts = "/api/products";
+
+//Validaciones
+let validacionesEditProduct,
+  validacionesCreateProduct = Validations([
+    [
+      "productName",
+      [
+        ValidationTypes.notEmpty,
+        [ValidationTypes.isLength, { min: 2, max: 128 }],
+      ],
+    ],
+    [
+      "productDescription",
+      [
+        ValidationTypes.notEmpty,
+        [ValidationTypes.isLength, { min: 2, max: 512 }],
+      ],
+    ],
+    [
+      "productTerminated",
+      [
+        ValidationTypes.notEmpty,
+        [ValidationTypes.isLength, { min: 2, max: 64 }],
+      ],
+    ],
+    ["categoryId", [ValidationTypes.notEmpty, ValidationTypes.isInt]],
+    [
+      "unitsBuyes",
+      [ValidationTypes.notEmpty, [ValidationTypes.isInt, { min: 0, max: 999 }]],
+    ],
+    [
+      "priceGross",
+      [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
+    ],
+    [
+      "priceFinal",
+      [ValidationTypes.notEmpty, [ValidationTypes.isFloat, { min: 0 }]],
+    ],
+  ]);
 
 //All products
 router.get(`${urlProducts}`, productsController.findAll);
@@ -23,7 +66,11 @@ router.get(
 );
 
 //Edit a product
-router.post(`${urlProducts}/edit/:id`, productsController.updateProduct);
+router.post(
+  `${urlProducts}/edit/:id`,
+  validacionesEditProduct,
+  productsController.updateProduct
+);
 
 //Delete a product
 router.post(`${urlProducts}/delete/:id`, productsController.deleteProduct);
@@ -31,6 +78,7 @@ router.post(`${urlProducts}/delete/:id`, productsController.deleteProduct);
 //Create a product
 router.post(
   `${urlProducts}/create`,
+  validacionesCreateProduct,
   saveProductImages.single("imageMain"),
   productsController.createProduct
 );
