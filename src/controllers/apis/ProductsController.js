@@ -102,6 +102,7 @@ const updateProduct = async (req, res) => {
     priceGross: Number(body.priceGross),
     priceFinal: Number(body.priceFinal),
     discount: Number(body.discount),
+    taxesId: Number(body.taxesId),
   };
 
   productUpdate = await productsService.updateProduct(productId, producto);
@@ -178,6 +179,7 @@ const createProduct = async (req, res, next) => {
     priceGross: Number(body.priceGross),
     priceFinal: Number(body.priceFinal),
     discount: Number(body.discount),
+    taxesId: Number(body.taxesId),
   };
 
   newProducto = await productsService.createProduct(producto, file);
