@@ -31,6 +31,12 @@ const findProduct = async (req, res) => {
   let response = [];
   let idProduct = req.params.id;
 
+  if (!idProduct) {
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+  }
+
   product = await productsService.findProductWithImages(idProduct);
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, product);
@@ -50,13 +56,139 @@ const findProductsByCategory = async (req, res) => {
   let productsResponse = [];
   let response = [];
 
-  if (categoryId) {
-    productsResponse = await productsService.findAllProductsByCategory(
-      categoryId
-    );
+  if (!categoryId) {
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
+  productsResponse = await productsService.findAllProductsByCategory(
+    categoryId
+  );
+
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productsResponse);
+
+  return res.status(response.status).json(response);
+};
+
+/**
+ * Return product update
+ *
+ * @param {*} req   - is an object containing information about the HTTP request that raised the event
+ * @param {*} res   - to send back the desired HTTP response
+ * @return {*} response  -Json with the product update and aditional api data
+ */
+const updateProduct = async (req, res) => {
+  let productId = req.params.id;
+  let response = [];
+  let productUpdate = {};
+  let body = req.body;
+  let producto = {};
+
+  if (!productId) {
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+  }
+
+  producto = {
+    productName: body.productName,
+    productDescription: body.productDescription,
+    productTerminated: body.productTerminated,
+    sku: body.sku,
+    categoryId: Number(body.categoryId),
+    unitsBuyes: Number(body.unitsBuyes),
+    isActive: body.isActive,
+    priceGross: Number(body.priceGross),
+    priceFinal: Number(body.priceFinal),
+    discount: Number(body.discount),
+    taxesId: Number(body.taxesId),
+  };
+
+  productUpdate = await productsService.updateProduct(productId, producto);
+
+  response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productUpdate);
+
+  return res.status(response.status).json(response);
+};
+
+/**
+ * Delete product
+ *
+ * @param {*} req   - is an object containing information about the HTTP request that raised the event
+ * @param {*} res   - to send back the desired HTTP response
+ * @return {*} Status
+ */
+const deleteProduct = async (req, res) => {
+  let productId = req.params.id;
+  let response = [];
+  let deleteSuccess = false;
+
+  if (!productId) {
+    return res
+      .status(ApiFormats.ApiStatus.NOT_FOUND.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
+  }
+
+  deleteSuccess = await productsService.deleteProduct(productId);
+
+  if (!deleteSuccess) {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST);
+  } else {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK);
+  }
+
+  return res.status(response.status).json(response);
+};
+
+/**
+ * Create product
+ *
+ * @param {*} req   - is an object containing information about the HTTP request that raised the event
+ * @param {*} res   - to send back the desired HTTP response
+ * @return {*} Status
+ */
+const createProduct = async (req, res, next) => {
+  let body = req.body;
+  let file = req.file;
+  let response = [];
+  let producto = {};
+  let newProducto = {};
+
+  if (!file) {
+    const error = new Error("Por favor seleccione un archivo");
+    error.httpStatusCode = 400;
+    return next(error);
+  }
+
+  if (!body) {
+    return res
+      .status(ApiFormats.ApiStatus.BAD_REQUEST.code)
+      .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST));
+  }
+
+  producto = {
+    productName: body.productName,
+    productDescription: body.productDescription,
+    productTerminated: body.productTerminated,
+    sku: body.sku,
+    categoryId: Number(body.categoryId),
+    unitsBuyes: Number(body.unitsBuyes),
+    unitsSelled: 0,
+    isActive: body.isActive,
+    priceGross: Number(body.priceGross),
+    priceFinal: Number(body.priceFinal),
+    discount: Number(body.discount),
+    taxesId: Number(body.taxesId),
+  };
+
+  newProducto = await productsService.createProduct(producto, file);
+
+  if (!newProducto) {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST);
+  } else {
+    response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, newProducto);
+  }
 
   return res.status(response.status).json(response);
 };
@@ -65,4 +197,7 @@ module.exports = {
   findAll,
   findProduct,
   findProductsByCategory,
+  updateProduct,
+  deleteProduct,
+  createProduct,
 };

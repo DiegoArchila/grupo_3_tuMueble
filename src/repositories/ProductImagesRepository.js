@@ -144,9 +144,59 @@ const findAllByProductIdOrderByIsMain = async (idProduct) => {
   return productImages;
 };
 
+/**
+ * Delete a ProductImage by where condition
+ *
+ * @param {*} where -The where condition for the delete
+ * @return {boolean}  -Return true if the delete was success
+ */
+const deleteWhere = async (where) => {
+  if (!where) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "Specify a where condicion for delete");
+    return false;
+  }
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    `Request for delete productsImage where: ${where}`
+  );
+
+  try {
+    await db.ProductImages.destroy({ where });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The ProductImage was delete`);
+
+  return true;
+};
+
+/**
+ * Create a productImage
+ *
+ * @param {*} productImage -ProductImage to create
+ * @return {*} -New productImage
+ */
+const create = async (productImage) => {
+  let newProductImage = {};
+  Log.consoleLogs(Log.LogsTypes.INFO, `Request for create productsImage`);
+
+  try {
+    newProductImage = await db.ProductImages.create(productImage);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  return newProductImage;
+};
+
 module.exports = {
   findAll,
   findAllByIdProductsAndIsMain,
   findByPk,
   findAllByProductIdOrderByIsMain,
+  deleteWhere,
+  create,
 };

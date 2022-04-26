@@ -100,8 +100,98 @@ const findAllByCategory = async (categoryId) => {
   return allProducts;
 };
 
+/**
+ * Update product by id
+ *
+ * @param {number} productId  -Product id
+ * @param {*} product -Update data
+ * @return {*} -Product update
+ */
+const update = async (productId, product) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    "Request for update product by id: " + productId
+  );
+  let productUpdate = {};
+  try {
+    productUpdate = await db.Product.update(product, {
+      where: { id: productId },
+    });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  if (productUpdate) {
+    Log.consoleLogs(
+      Log.LogsTypes.SUCCESS,
+      `product has been update: ${productUpdate}`
+    );
+  } else {
+    Log.consoleLogs(Log.LogsTypes.WARM, `product not update`);
+  }
+
+  return productUpdate;
+};
+
+/**
+ * Delete a Product by where condition
+ *
+ * @param {*} where -The where condition for the delete
+ * @return {boolean}  -Return true if the delete was success
+ */
+const deleteWhere = async (where) => {
+  if (!where) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "Specify a where condicion for delete");
+    return false;
+  }
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    `Request for delete Product where: ${where}`
+  );
+
+  try {
+    await db.Product.destroy({ where });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The Product was delete`);
+
+  return true;
+};
+
+/**
+ * Create a product
+ *
+ * @param {*} producto  -Product to create
+ * @return {*} -The new product
+ */
+const create = async (producto) => {
+  if (!producto) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "No data for create a product");
+    return null;
+  }
+  let newProducto = {};
+  Log.consoleLogs(Log.LogsTypes.INFO, `Request for create Product`);
+  try {
+    newProducto = await db.Product.create(producto);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  Log.consoleLogs(Log.LogsTypes.SUCCESS, `The Product was create`);
+
+  return newProducto;
+};
+
 module.exports = {
   findAll,
   findByPk,
   findAllByCategory,
+  update,
+  deleteWhere,
+  create,
 };
