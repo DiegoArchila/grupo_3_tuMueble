@@ -47,6 +47,14 @@ const Tax = (sequelize) => {
 };
 
 //------------------------- Relationship
+Tax.associate = (models) => {
+  //Product
+  Product.belongsToMany(models.Product, {
+    through: "productsTaxes",
+    foreignKey: "taxeId",
+    otherKey: "productId",
+  });
+};
 
 //------------------------- Return
 module.exports = Tax;
