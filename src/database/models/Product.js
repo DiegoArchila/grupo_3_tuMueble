@@ -77,6 +77,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "productId",
       as: "images",
     });
+
+    //Tax
+    Product.belongsToMany(models.Tax, {
+      as: "taxes",
+      through: "productsTaxes",
+      foreignKey: "productId",
+      otherKey: "taxeId",
+    });
   };
 
   return Product;

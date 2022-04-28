@@ -11,6 +11,10 @@ const include = [
     as: "images",
     model: db.ProductImages,
   },
+  {
+    as: "taxes",
+    model: db.Tax,
+  },
 ];
 
 /**
