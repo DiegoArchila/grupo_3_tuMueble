@@ -122,9 +122,45 @@ const create = async (productImage) => {
   return newProductImage;
 };
 
+/**
+ * Update ProductImages by id
+ *
+ * @param {*} productImages -Update data
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
+ * @return {*} -Product update
+ */
+const update = async (productImages, params = null) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    "Request for update productImages" +
+      (params ? ` by: ${JSON.stringify(params)}` : "")
+  );
+  let productImagesUpdate = {};
+  try {
+    productImagesUpdate = await db.ProductImages.update(productImages, {
+      ...params,
+    });
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  if (productImagesUpdate) {
+    Log.consoleLogs(
+      Log.LogsTypes.SUCCESS,
+      `product has been update: ${productImagesUpdate}`
+    );
+  } else {
+    Log.consoleLogs(Log.LogsTypes.WARM, `productImages not update`);
+  }
+
+  return productImagesUpdate;
+};
+
 module.exports = {
   findAll,
   findByPk,
   deleteWhere,
   create,
+  update,
 };
