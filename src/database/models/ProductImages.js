@@ -45,9 +45,9 @@ const ProductImages = (sequelize) => {
 
 //------------------------- Relationship
 ProductImages.associations = function (models) {
+  //Product
   ProductImages.belongsTo(models.Product, {
     as: "products",
-    foreignKey: "productId",
   });
 };
 //------------------------- Return

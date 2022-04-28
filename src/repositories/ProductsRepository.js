@@ -1,16 +1,36 @@
 const Log = require("../lib/ConsoleLogs.js");
 const db = require("../database/models/index.js");
 
+/** Include childs on the product */
+const include = [
+  {
+    as: "category",
+    model: db.ProductCategory,
+  },
+  {
+    as: "images",
+    model: db.ProductImages,
+  },
+];
+
 /**
  * Request for get all products
  *
+ * @param {{}} params -Params like where conditions, order, etc.
  * @return {*}  -All products
  */
-let findAll = async () => {
-  Log.consoleLogs(Log.LogsTypes.INFO, "Request for get all products");
+let findAll = async (params = null) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    "Request for get all products" +
+      (params ? ` by: ${JSON.stringify(params)}` : "")
+  );
   let allProducts = [];
   try {
-    allProducts = await db.Product.findAll();
+    allProducts = await db.Product.findAll({
+      include,
+      ...params,
+    });
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -34,20 +54,25 @@ let findAll = async () => {
  * Find one product by id
  *
  * @param {number} id    -Id of the product
+ * @param {{}} params -Params with conditions
  * @return {*} The product by id
  */
-let findByPk = async (id) => {
+let findByPk = async (id, params = null) => {
   if (!id) {
     Log.consoleLogs(Log.LogsTypes.ERR, "The id is null");
     return null;
   }
   Log.consoleLogs(
     Log.LogsTypes.INFO,
-    `Request for get one product by id: ${id}`
+    `Request for get one product by id: ${id}` +
+      (params ? `and by: ${JSON.stringify(params)}` : "")
   );
   let product = {};
   try {
-    product = await db.Product.findByPk(id);
+    product = await db.Product.findByPk(id, {
+      include,
+      ...params,
+    });
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -63,41 +88,6 @@ let findByPk = async (id) => {
   }
 
   return product;
-};
-
-/**
- * All products by category
- *
- * @param {number} categoryId -Id of the category
- * @return {*}  - All products by category
- */
-const findAllByCategory = async (categoryId) => {
-  Log.consoleLogs(
-    Log.LogsTypes.INFO,
-    "Request for get all products by category id: " + categoryId
-  );
-  let allProducts = [];
-  try {
-    allProducts = await db.Product.findAll({
-      where: { categoryId: categoryId },
-    });
-  } catch (error) {
-    Log.consoleLogs(Log.LogsTypes.ERR, error);
-    throw error;
-  }
-  if (allProducts.length > 0) {
-    Log.consoleLogs(
-      Log.LogsTypes.SUCCESS,
-      `${allProducts.length} products have been found`
-    );
-  } else {
-    Log.consoleLogs(
-      Log.LogsTypes.WARM,
-      `${allProducts.length} products not found`
-    );
-  }
-
-  return allProducts;
 };
 
 /**
@@ -190,7 +180,6 @@ const create = async (producto) => {
 module.exports = {
   findAll,
   findByPk,
-  findAllByCategory,
   update,
   deleteWhere,
   create,

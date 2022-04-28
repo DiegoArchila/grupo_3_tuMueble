@@ -19,14 +19,15 @@ const viewAllProducts = async (req, res) => {
   let idProducts = [];
   let categories = [];
   try {
-    allProducts = await db.Product.findAll(/*{
+    allProducts = await db.Product.findAll({
       include: [
         {
-          association: db.ProductCategory,
           as: "category",
+          model: db.ProductCategory,
         },
       ],
-    }*/);
+    });
+    console.log(allProducts);
     categories = await db.ProductCategory.findAll();
 
     idProducts = allProducts.map((product) => {
