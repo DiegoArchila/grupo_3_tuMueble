@@ -1,8 +1,5 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const Product = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   //Set the Alias
   const alias = "Product";
 
@@ -66,16 +63,21 @@ const Product = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
-};
+  const Product = sequelize.define(alias, cols, config);
 
-//------------------------- Relationship
-Product.associate = function (models) {
-  Product.belongsTo(models.ProductCategory, {
-    as: "category",
-    foreignKey: "categoryId",
-  });
-};
+  //------------------------- Relationship
+  Product.associate = function (models) {
+    //ProductCategory
+    Product.belongsTo(models.ProductCategory, {
+      as: "category",
+    });
 
-//------------------------- Return
-module.exports = Product;
+    //ProductImages
+    Product.hasMany(models.ProductImages, {
+      foreignKey: "productId",
+      as: "images",
+    });
+  };
+
+  return Product;
+};

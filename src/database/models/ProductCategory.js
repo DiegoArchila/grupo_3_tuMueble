@@ -1,8 +1,5 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const ProductCategory = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   //Set the Alias
   const alias = "ProductCategory";
 
@@ -32,17 +29,16 @@ const ProductCategory = (sequelize) => {
     deletedAt: false,
   };
 
+  const ProductCategory = sequelize.define(alias, cols, config);
+
+  //------------------------- Relationship
+  ProductCategory.associate = function (models) {
+    ProductCategory.hasMany(models.Product, {
+      foreignKey: "categoryId",
+      as: "products",
+    });
+  };
+
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  return ProductCategory;
 };
-
-//------------------------- Relationship
-ProductCategory.associate = function (models) {
-  ProductCategory.hasMany(models.Product, {
-    as: "products",
-    foreignKey: "categoryId",
-  });
-};
-
-//------------------------- Return
-module.exports = ProductCategory;
