@@ -1,4 +1,5 @@
 const productsService = require("../../services/ProductsService.js");
+const productRepository = require("../../repositories/ProductsRepository.js");
 const ApiFormats = require("../../lib/ApiFormats.js");
 
 /**
@@ -12,7 +13,7 @@ const findAll = async (req, res) => {
   let allProducts = [];
   let response = [];
 
-  allProducts = await productsService.findAllWithMainImage();
+  allProducts = await productRepository.findAll();
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, allProducts);
 
@@ -37,7 +38,7 @@ const findProduct = async (req, res) => {
       .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
-  product = await productsService.findProductWithImages(idProduct);
+  product = await productRepository.findByPk(idProduct);
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, product);
 
@@ -62,9 +63,7 @@ const findProductsByCategory = async (req, res) => {
       .json(ApiFormats.ApiFormat(ApiFormats.ApiStatus.NOT_FOUND));
   }
 
-  productsResponse = await productsService.findAllProductsByCategory(
-    categoryId
-  );
+  productsResponse = await productRepository.findAll({ where: { categoryId } });
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productsResponse);
 
