@@ -1,8 +1,6 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const PhoneCategory = (sequelize) => {
+const PhoneCategory = (sequelize, DataTypes) => {
+  
   //Set the Alias
   const alias = "UserPhone";
 
@@ -33,10 +31,20 @@ const PhoneCategory = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  const model = sequelize.define(alias, cols, config);
+
+  //------------------------- Relationship
+  model.associate = function (models){
+    
+    model.hasMany(models.UserPhone, {
+      as: "category",
+      foreignKey: "categoryId"
+    })
+  };
+
+  //------------------------- Return
+  return model;
+
 };
 
-//------------------------- Relationship
-
-//------------------------- Return
 module.exports = PhoneCategory;

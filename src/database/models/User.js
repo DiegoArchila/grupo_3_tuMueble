@@ -1,8 +1,6 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const User = (sequelize) => {
+const User = (sequelize, DataTypes) => {
+  
   //Set the Alias
   const alias = "User";
 
@@ -38,6 +36,8 @@ const User = (sequelize) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    created_at: DataTypes.TIMESTAMP,
+    updated_at: DataTypes.TIMESTAMP
   };
 
   //Sets configurations the from model or table
@@ -50,16 +50,37 @@ const User = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  const model = sequelize.define(alias, cols, config);
+  
+  //------------------------- Relationship
+  model.associate = function (models) {
+    
+    model.hasMany(models.UserPhone, {
+      as: "phones",
+      foreignKey: "genderId",
+    });
+
+    model.hasMany(models.UserEmail, {
+      as: "emails",
+      foreignKey: "userId",
+    });
+
+    model.belongsTo(models.UserGender, {
+      as: "gender",
+      foreignKey:"genderId"
+    });
+
+    model.hasMany(models.UserLocation, {
+      as: "locations",
+      foreignKey:"userId"
+    });
+
+  };
+
+  //------------------------- Return
+  return model;
+  
 };
 
-//------------------------- Relationship
-User.associations = function (models) {
-  User.belongsTo(models.PhoneCategory, {
-    as: "usersGenders",
-    foreignKey: "genderId",
-  });
-};
 
-//------------------------- Return
 module.exports = User;

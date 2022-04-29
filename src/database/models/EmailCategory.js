@@ -1,8 +1,6 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const EmailCategory = (sequelize) => {
+const EmailCategory = (sequelize, DataTypes) => {
+
   //Set the Alias
   const alias = "UserPhone";
 
@@ -21,6 +19,9 @@ const EmailCategory = (sequelize) => {
     notes: {
       type: DataTypes.STRING(250),
     },
+    created_at: DataTypes.TIMESTAMP,
+    updated_at: DataTypes.TIMESTAMP
+    
   };
 
   //Sets configurations the from model or table
@@ -33,10 +34,21 @@ const EmailCategory = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  const model=sequelize.define(alias, cols, config);
+
+  //------------------------- Relationship
+  model.associate=function(models) {
+    
+    model.hasMany(models.UserEmail, {
+      as: "category",
+      foreignKey:"categoryId"
+    });
+    
+  }
+  
+  //------------------------- Return
+  return model;
+
 };
 
-//------------------------- Relationship
-
-//------------------------- Return
 module.exports = EmailCategory;

@@ -1,8 +1,6 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const UserGender = (sequelize) => {
+const UserGender = (sequelize, DataTypes) => {
+  
   //Set the Alias
   const alias = "UserGender";
 
@@ -23,6 +21,8 @@ const UserGender = (sequelize) => {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    created_at: DataTypes.TIMESTAMP,
+    updated_at: DataTypes.TIMESTAMP
   };
 
   //Sets configurations the from model or table
@@ -35,10 +35,20 @@ const UserGender = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  const model = sequelize.define(alias, cols, config);
+
+  //------------------------- Relationship
+  model.associate = function(models) {
+
+    model.hasMany(models.User, {
+      as: "gender",
+      foreignKey: "genderId"
+    });
+
+  }
+
+  //------------------------- Return
+  return model;
 };
 
-//------------------------- Relationship
-
-//------------------------- Return
 module.exports = UserGender;

@@ -1,8 +1,6 @@
-//------------------------- Imports
-const { Sequelize, DataTypes } = require("sequelize");
-
 //------------------------- Settings
-const UserLocation = (sequelize) => {
+const UserLocation = (sequelize, DataTypes) => {
+  
   //Set the Alias
   const alias = "UserPhone";
 
@@ -52,16 +50,22 @@ const UserLocation = (sequelize) => {
   };
 
   //------------------------- Asignation
-  return sequelize.define(alias, cols, config);
+  const model = sequelize.define(alias, cols, config);
+
+  //------------------------- Relationship
+  model.associations = function (models) {
+    
+    model.belongsTo(models.User, {
+      as: "locations",
+      foreignKey: "userId",
+    });
+
+  };
+
+  //------------------------- Return
+  return model;
+
 };
 
-//------------------------- Relationship
-UserLocation.associations = function (models) {
-  UserLocation.belongsTo(models.User, {
-    as: "users",
-    foreignKey: "userId",
-  });
-};
 
-//------------------------- Return
 module.exports = UserLocation;
