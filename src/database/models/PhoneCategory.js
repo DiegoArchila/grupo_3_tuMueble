@@ -1,8 +1,8 @@
 //------------------------- Settings
-const PhoneCategory = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   
   //Set the Alias
-  const alias = "UserPhone";
+  const alias = "PhoneCategory";
 
   //Sets the columns
   const cols = {
@@ -31,20 +31,18 @@ const PhoneCategory = (sequelize, DataTypes) => {
   };
 
   //------------------------- Asignation
-  const model = sequelize.define(alias, cols, config);
+  const PhoneCategory = sequelize.define(alias, cols, config);
 
   //------------------------- Relationship
-  model.associate = function (models){
+  PhoneCategory.associate = function (models){
     
-    model.hasMany(models.UserPhone, {
-      as: "category",
+    PhoneCategory.hasMany(models.UserPhone, {
+      as: "userPhones",
       foreignKey: "categoryId"
     })
   };
 
   //------------------------- Return
-  return model;
+  return PhoneCategory;
 
 };
-
-module.exports = PhoneCategory;

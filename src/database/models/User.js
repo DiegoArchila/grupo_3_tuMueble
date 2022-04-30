@@ -1,5 +1,5 @@
 //------------------------- Settings
-const User = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   
   //Set the Alias
   const alias = "User";
@@ -7,7 +7,7 @@ const User = (sequelize, DataTypes) => {
   //Sets the columns
   const cols = {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false,
@@ -36,8 +36,8 @@ const User = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
-    created_at: DataTypes.TIMESTAMP,
-    updated_at: DataTypes.TIMESTAMP
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   };
 
   //Sets configurations the from model or table
@@ -50,27 +50,27 @@ const User = (sequelize, DataTypes) => {
   };
 
   //------------------------- Asignation
-  const model = sequelize.define(alias, cols, config);
+  const User = sequelize.define(alias, cols, config);
   
   //------------------------- Relationship
-  model.associate = function (models) {
+  User.associate = function (models) {
     
-    model.hasMany(models.UserPhone, {
+    User.hasMany(models.UserPhone, {
       as: "phones",
       foreignKey: "genderId",
     });
 
-    model.hasMany(models.UserEmail, {
+    User.hasMany(models.UserEmail, {
       as: "emails",
       foreignKey: "userId",
     });
 
-    model.belongsTo(models.UserGender, {
-      as: "gender",
+    User.belongsTo(models.UserGender, {
+      as: "genders",
       foreignKey:"genderId"
     });
 
-    model.hasMany(models.UserLocation, {
+    User.hasMany(models.UserLocation, {
       as: "locations",
       foreignKey:"userId"
     });
@@ -78,9 +78,6 @@ const User = (sequelize, DataTypes) => {
   };
 
   //------------------------- Return
-  return model;
+  return User;
   
 };
-
-
-module.exports = User;

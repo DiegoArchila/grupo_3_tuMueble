@@ -30,4 +30,8 @@ router.post(
   adminController.createProductPost
 );
 
+
+router
+  .get("/api/admin/user")
+
 module.exports = router;

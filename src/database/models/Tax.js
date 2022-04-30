@@ -12,24 +12,24 @@ const Tax = (sequelize) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-      allowNull: false,
+      allowNull: false
     },
     taxeName: {
       type: DataTypes.STRING(64),
-      allowNull: false,
+      allowNull: false
     },
     taxeDescription: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(255)
     },
     taxeValue: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
+      allowNull: false
     },
     isActive: {
-      type: DataTypes.TINYINT,
+      type: DataTypes.TINYINT
     },
     notes: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(255)
     },
   };
 

@@ -1,8 +1,8 @@
 //------------------------- Settings
-const UserLocation = (sequelize, DataTypes) => {
+module.exports= (sequelize, DataTypes) => {
   
   //Set the Alias
-  const alias = "UserPhone";
+  const alias = "UserLocation";
 
   //Sets the columns
   const cols = {
@@ -38,6 +38,8 @@ const UserLocation = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    create_at: DataTypes.DATE,
+    update_at: DataTypes.DATE
   };
 
   //Sets configurations the from model or table
@@ -50,22 +52,19 @@ const UserLocation = (sequelize, DataTypes) => {
   };
 
   //------------------------- Asignation
-  const model = sequelize.define(alias, cols, config);
+  const UserLocation = sequelize.define(alias, cols, config);
 
   //------------------------- Relationship
-  model.associations = function (models) {
+  UserLocation.associate = function (models) {
     
-    model.belongsTo(models.User, {
-      as: "locations",
+    UserLocation.belongsTo(models.User, {
+      as: "locationUsers",
       foreignKey: "userId",
     });
 
   };
 
   //------------------------- Return
-  return model;
+  return UserLocation;
 
 };
-
-
-module.exports = UserLocation;

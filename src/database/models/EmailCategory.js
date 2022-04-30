@@ -1,8 +1,8 @@
 //------------------------- Settings
-const EmailCategory = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 
   //Set the Alias
-  const alias = "UserPhone";
+  const alias = "EmailCategory";
 
   //Sets the columns
   const cols = {
@@ -19,8 +19,8 @@ const EmailCategory = (sequelize, DataTypes) => {
     notes: {
       type: DataTypes.STRING(250),
     },
-    created_at: DataTypes.TIMESTAMP,
-    updated_at: DataTypes.TIMESTAMP
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
     
   };
 
@@ -34,21 +34,19 @@ const EmailCategory = (sequelize, DataTypes) => {
   };
 
   //------------------------- Asignation
-  const model=sequelize.define(alias, cols, config);
+  const EmailCategory=sequelize.define(alias, cols, config);
 
   //------------------------- Relationship
-  model.associate=function(models) {
+  EmailCategory.associate=function(models) {
     
-    model.hasMany(models.UserEmail, {
-      as: "category",
+    EmailCategory.hasMany(models.UserEmail, {
+      as: "userEmails",
       foreignKey:"categoryId"
     });
     
   }
   
   //------------------------- Return
-  return model;
+  return EmailCategory;
 
 };
-
-module.exports = EmailCategory;

@@ -1,5 +1,5 @@
 //------------------------- Settings
-const UserEmail = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   
   //Set the Alias
   const alias = "UserEmail";
@@ -24,8 +24,8 @@ const UserEmail = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    created_at: DataTypes.TIMESTAMP,
-    updated_at: DataTypes.TIMESTAMP
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   };
 
   //Sets configurations the from model or table
@@ -38,25 +38,23 @@ const UserEmail = (sequelize, DataTypes) => {
   };
 
   //------------------------- Asignation
-  const model = sequelize.define(alias, cols, config);
+  const UserEmail = sequelize.define(alias, cols, config);
 
   //------------------------- Relationship
-  model.associate = function (models) {
+  UserEmail.associate = function (models) {
     
-    model.belongsTo(models.EmailCategory, {
-      as: "category",
+    UserEmail.belongsTo(models.EmailCategory, {
+      as: "EmailCategories",
       foreignKey: "categoryId",
     });
 
-    model.belongsTo(models.User, {
-      as: "emails",
+    UserEmail.belongsTo(models.User, {
+      as: "emailsUser",
       foreignKey: "userId",
     });
   };
 
   //------------------------- Return
-  return model;
+  return UserEmail;
 
 };
-
-module.exports = UserEmail;
