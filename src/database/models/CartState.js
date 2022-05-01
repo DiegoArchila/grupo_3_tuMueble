@@ -44,7 +44,10 @@ module.exports = (sequelize, DataTypes) => {
     //------------------------- Relationship
     CartState.associate = function (models) {
       
-      
+      CartState.hasMany(models.Cart, {
+        as: "cartState",
+        foreignKey: "stateId"
+      });
   
     };
   

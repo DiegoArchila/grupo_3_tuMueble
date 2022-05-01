@@ -39,7 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     //------------------------- Relationship
     UserCart.associate = function (models) {
       
-      
+      UserCart.belongsTo(models.User, {
+        as: "usersCarts",
+        foreignKey: "userId"
+      });
   
     };
   

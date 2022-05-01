@@ -43,8 +43,28 @@ module.exports = (sequelize, DataTypes) => {
     //------------------------- Relationship
     Cart.associate = function (models) {
       
-      
-  
+      Cart.belongsToMany(models.Product,{
+        as: "productsCart",
+        through: "CartBox",
+        foreignKey: "cartId",
+        otherKey: "productId"
+      });
+
+      Cart.belongsTo(models.User, {
+        as: "cartsUser",
+        foreignKey:"userId"
+      });
+
+      Cart.belongsTo(models.CartState, {
+        as: "stateCart",
+        foreignKey: "stateId"
+      });
+
+      Cart.belongsTo(models.Oder,{
+        as: "order",
+        foreignKey: "cartId"
+      });
+
     };
   
     //------------------------- Return

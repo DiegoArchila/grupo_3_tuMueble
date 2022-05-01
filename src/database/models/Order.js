@@ -51,8 +51,15 @@ module.exports = (sequelize, DataTypes) => {
     //------------------------- Relationship
     Order.associate = function (models) {
       
+      Order.hasOne(models.Cart, {
+        as: "cart",
+        foreingKey: "cartId"
+      });
       
-  
+      Order.hasOne(models.UserLocation, {
+        as: "locationOrder",
+        foreingKey: "userLocationId"
+      });
     };
   
     //------------------------- Return
