@@ -20,7 +20,7 @@ const include = [
 /**
  * Request for get all products
  *
- * @param {{}} params -Params like where conditions, order, etc.
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*}  -All products
  */
 let findAll = async (params = null) => {
@@ -58,7 +58,7 @@ let findAll = async (params = null) => {
  * Find one product by id
  *
  * @param {number} id    -Id of the product
- * @param {{}} params -Params with conditions
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*} The product by id
  */
 let findByPk = async (id, params = null) => {
@@ -97,19 +97,20 @@ let findByPk = async (id, params = null) => {
 /**
  * Update product by id
  *
- * @param {number} productId  -Product id
  * @param {*} product -Update data
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*} -Product update
  */
-const update = async (productId, product) => {
+const update = async (product, params = null) => {
   Log.consoleLogs(
     Log.LogsTypes.INFO,
-    "Request for update product by id: " + productId
+    "Request for update product" +
+      (params ? ` by: ${JSON.stringify(params)}` : "")
   );
   let productUpdate = {};
   try {
     productUpdate = await db.Product.update(product, {
-      where: { id: productId },
+      ...params,
     });
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
