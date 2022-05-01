@@ -4,13 +4,18 @@ const db = require("../database/models/index.js");
 /**
  * Request for get all ProductTaxes
  *
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*}  -All ProductTaxes
  */
-let findAll = async () => {
-  Log.consoleLogs(Log.LogsTypes.INFO, "Request for get all ProductTaxes");
+let findAll = async (params = null) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    "Request for get all ProductTaxes" +
+      (params ? ` by: ${JSON.stringify(params)}` : "")
+  );
   let allProductTaxes = [];
   try {
-    allProductTaxes = await db.ProductTaxes.findAll();
+    allProductTaxes = await db.ProductTaxes.findAll({ ...params });
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -34,16 +39,18 @@ let findAll = async () => {
  * Find one ProductTaxes by id
  *
  * @param {number} id    -Id of the ProductTaxes
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*} The ProductTaxes by id
  */
-let findByPk = async (id) => {
+let findByPk = async (id, params = null) => {
   if (!id) {
     Log.consoleLogs(Log.LogsTypes.ERR, "The id is null");
     return null;
   }
   Log.consoleLogs(
     Log.LogsTypes.INFO,
-    `Request for get one ProductTaxes by id: ${id}`
+    `Request for get one ProductTaxes by id: ${id}` +
+      (params ? ` and by: ${JSON.stringify(params)}` : "")
   );
   let productTax = {};
   try {
@@ -69,18 +76,18 @@ let findByPk = async (id) => {
  * Update ProductTaxes. update the taxeId column where productId
  *
  * @param {*} taxId -Tax id for update
- * @param {*} productId -Where condicion
+ * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*}
  */
-const updateProductTaxesByProductId = async (taxId, productId) => {
+const update = async (productTax, params = null) => {
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    `Request for update one ProductTaxes` +
+      (params ? ` by: ${JSON.stringify(params)}` : "")
+  );
   let productTaxUpdate = {};
   try {
-    productTaxUpdate = await db.ProductTaxes.update(
-      {
-        taxeId: Number(taxId),
-      },
-      { where: { productId } }
-    );
+    productTaxUpdate = await db.ProductTaxes.update(productTax, ...params);
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -133,6 +140,10 @@ const deleteWhere = async (where) => {
  * @return {*}  -New productTax
  */
 const create = async (productTax) => {
+  if (!productTax) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "productTax is null");
+    return null;
+  }
   Log.consoleLogs(Log.LogsTypes.INFO, `Request for create ProductTaxes`);
   let newProductTax = {};
   try {
@@ -150,7 +161,7 @@ const create = async (productTax) => {
 module.exports = {
   findAll,
   findByPk,
-  updateProductTaxesByProductId,
+  update,
   deleteWhere,
   create,
 };
