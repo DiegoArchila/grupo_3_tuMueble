@@ -1,6 +1,8 @@
 const productsService = require("../../services/ProductsService.js");
 const productRepository = require("../../repositories/ProductsRepository.js");
 const ApiFormats = require("../../lib/ApiFormats.js");
+const db = require("../../database/models/index.js");
+const Op = db.Sequelize.Op;
 
 /**
  * Return all products
@@ -12,8 +14,47 @@ const ApiFormats = require("../../lib/ApiFormats.js");
 const findAll = async (req, res) => {
   let allProducts = [];
   let response = [];
+  let queryParams = req.query;
+  let params = null; //Parametros para la consulta
 
-  allProducts = await productRepository.findAll();
+  if (queryParams) {
+    let data = []; //Parametros a validar en el query string
+    //productName
+    if (queryParams.productName)
+      data.push({ productName: { [Op.substring]: queryParams.productName } });
+    //sku
+    if (queryParams.sku)
+      data.push({ sku: { [Op.substring]: queryParams.sku } });
+    //productTerminated
+    if (queryParams.productTerminated)
+      data.push({
+        productTerminated: { [Op.substring]: queryParams.productTerminated },
+      });
+    //categoryId
+    if (queryParams.categoryId)
+      data.push({ categoryId: { [Op.eq]: Number(queryParams.categoryId) } });
+    //isActive
+    if (queryParams.isActive)
+      data.push({ isActive: { [Op.eq]: queryParams.isActive == "true" } });
+    //PriceFinal between
+    if (queryParams.priceStart && queryParams.priceEnd)
+      data.push({
+        priceFinal: {
+          [Op.between]: [
+            Number(queryParams.priceStart),
+            Number(queryParams.priceEnd),
+          ],
+        },
+      });
+
+    params = {
+      where: {
+        [Op.and]: data,
+      },
+    };
+  }
+
+  allProducts = await productRepository.findAll(params);
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, allProducts);
 
