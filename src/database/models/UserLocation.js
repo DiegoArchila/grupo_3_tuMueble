@@ -62,7 +62,7 @@ module.exports= (sequelize, DataTypes) => {
       foreignKey: "userId",
     });
 
-    UserLocation.belongsTo(models.Oder,{
+    UserLocation.belongsTo(models.Order,{
       as: "orderLocation",
       foreignKey: "userLocationId"
     });

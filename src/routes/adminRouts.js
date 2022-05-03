@@ -5,7 +5,6 @@ const router = express.Router();
 const imageSaver = require("../lib/imageSaver.js");
 const adminController = require("../controllers/adminController.js");
 
-const packageName = require('packageName');
 
 //Imagen principal del producto
 let saveProductImages = imageSaver.saveImages("public/img/store/products");
