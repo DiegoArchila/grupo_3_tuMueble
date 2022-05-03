@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * UserCart model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize UserCart model
+ */
 module.exports = (sequelize, DataTypes) => {
   
     //Set the Alias

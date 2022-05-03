@@ -1,4 +1,9 @@
-//------------------------- Imports
+/**
+ * ProductImages model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize ProductImages model
+ */
 const { Sequelize, DataTypes } = require("sequelize");
 
 //------------------------- Settings

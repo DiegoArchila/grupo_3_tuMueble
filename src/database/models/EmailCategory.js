@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * EmailCategory model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize EmailCategory model
+ */
 module.exports = (sequelize, DataTypes) => {
 
   //Set the Alias

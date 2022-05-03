@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * CartState model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize CartState model
+ */
 module.exports = (sequelize, DataTypes) => {
   
     //Set the Alias

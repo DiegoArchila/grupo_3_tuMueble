@@ -44,12 +44,15 @@ const encrypt = (pwd) => {
 
 /**
  * Compared encrypt passwords with password text
- * @param {String} pwd text of the password to compare
+ * @param {*} pwd text of the password to compare
  * @returns true if the comparation is true, or false if don't
  */
- const comparePassword = (pwd, pwdEncrypted) => {
+const comparePassword = (pwd, pwdEncrypted) => {
     return bcrypt.compareSync(pwd,pwdEncrypted);
 }
+
+// const createJWT()
+
 
 module.exports={
     toCOP,

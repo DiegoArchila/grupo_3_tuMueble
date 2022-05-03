@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * ProductCategory model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize ProductCategory model
+ */
 module.exports = (sequelize, DataTypes) => {
   //Set the Alias
   const alias = "ProductCategory";

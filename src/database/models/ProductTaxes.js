@@ -1,4 +1,9 @@
-//------------------------- Imports
+/**
+ * ProductTax model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize ProductTax model
+ */
 const { Sequelize, DataTypes } = require("sequelize");
 
 //------------------------- Settings

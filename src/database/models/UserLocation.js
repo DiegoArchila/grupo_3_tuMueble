@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * UserLocation model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize UserLocation model
+ */
 module.exports= (sequelize, DataTypes) => {
   
   //Set the Alias

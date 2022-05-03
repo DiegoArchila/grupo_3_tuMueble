@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * UserEmil model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize UserEmail model
+ */
 module.exports = (sequelize, DataTypes) => {
   
   //Set the Alias

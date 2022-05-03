@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * Order model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize Order model
+ */
 module.exports = (sequelize, DataTypes) => {
   
     //Set the Alias

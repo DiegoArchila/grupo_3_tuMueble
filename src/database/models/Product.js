@@ -1,4 +1,9 @@
-//------------------------- Settings
+/**
+ * Product model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize Product model
+ */
 module.exports = (sequelize, DataTypes) => {
   //Set the Alias
   const alias = "Product";

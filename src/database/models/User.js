@@ -1,4 +1,11 @@
-//------------------------- Settings
+const bcrypt = require("bcrypt");
+
+/**
+ * User model representation
+ * @param {import("sequelize").Sequelize} sequelize 
+ * @param {import("sequelize").DataType} DataTypes 
+ * @returns Sequelize User model
+ */
 module.exports = (sequelize, DataTypes) => {
   
   //Set the Alias
@@ -52,7 +59,22 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: "created_at",
     updatedAt: "updated_at",
     deletedAt: false,
+    hooks:{
+      beforeCreate: async (user) => {
+        const salt = await bcrypt.genSalt(12);
+        user.pwd= await bcrypt.hash(user.pwd, salt);
+      }
+    }
   };
+
+  /**
+   * Function to compare PWD
+   * @param {this.pwd} pwd 
+   * @returns 
+   */
+  User.prototype.validPwd= async function (pwd) {
+    return await bcrypt.compare(pwd, this.pwd);
+  }
 
   //------------------------- Asignation
   const User = sequelize.define(alias, cols, config);
