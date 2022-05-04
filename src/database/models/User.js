@@ -1,9 +1,9 @@
-const bcrypt = require("bcrypt");
+const { encrypt, comparePassword } = require("../../lib/formats.js");
 
 /**
  * User model representation
  * @param {import("sequelize").Sequelize} sequelize 
- * @param {import("sequelize").DataType} DataTypes 
+ * @param {import("sequelize").DataTypes} DataTypes 
  * @returns Sequelize User model
  */
 module.exports = (sequelize, DataTypes) => {
@@ -61,24 +61,24 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: false,
     hooks:{
       beforeCreate: async (user) => {
-        const salt = await bcrypt.genSalt(12);
-        user.pwd= await bcrypt.hash(user.pwd, salt);
+        user.pwd = await encrypt(user.pwd);
       }
     }
   };
 
-  /**
-   * Function to compare PWD
-   * @param {this.pwd} pwd 
-   * @returns 
-   */
-  User.prototype.validPwd= async function (pwd) {
-    return await bcrypt.compare(pwd, this.pwd);
-  }
-
   //------------------------- Asignation
   const User = sequelize.define(alias, cols, config);
   
+  /**
+ * Function to compare PWD
+ * @param {*} pwd 
+ * @returns 
+ */
+    User.prototype.validPwd= async function (pwd) {
+    return await comparePassword(pwd, this.pwd);
+  }
+  
+
   //------------------------- Relationship
   User.associate = function (models) {
     

@@ -1,7 +1,7 @@
 /**
  * ProductCategory model representation
  * @param {import("sequelize").Sequelize} sequelize 
- * @param {import("sequelize").DataType} DataTypes 
+ * @param {import("sequelize").DataTypes} DataTypes 
  * @returns Sequelize ProductCategory model
  */
 module.exports = (sequelize, DataTypes) => {

@@ -1,7 +1,7 @@
 /**
  * UserLocation model representation
  * @param {import("sequelize").Sequelize} sequelize 
- * @param {import("sequelize").DataType} DataTypes 
+ * @param {import("sequelize").DataTypes} DataTypes 
  * @returns Sequelize UserLocation model
  */
 module.exports= (sequelize, DataTypes) => {

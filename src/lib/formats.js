@@ -2,6 +2,9 @@
 const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const { resolve } = require("path");
+const { rejects } = require("assert");
+const jwt = require("jsonwebtoken");
 
 /**Format the numbers to format currency,
  * this to COP=Colombian PESO Money
@@ -51,7 +54,27 @@ const comparePassword = (pwd, pwdEncrypted) => {
     return bcrypt.compareSync(pwd,pwdEncrypted);
 }
 
-// const createJWT()
+/**
+ * Generate Token with jsonwebtoken
+ * @param {*} uid 
+ * @returns Promise: Token or error
+ */
+const createJWT = (uid="") => {
+    return new Promise((resolve, reject) => {
+        const payload={uid};
+        jwt.sign(payload, "LlaveS3cret4SignJWt425_.098j@", {
+            algorithm: "RS512",
+            expiresIn: "1d"
+        }, ((err, token) => {
+            if(err){
+                console.log("Se ha generado un error al intentar generar token:\n", err);
+                reject("Se ha generado un error al intentar generar token:\n"+ err);
+            }else {
+                resolve(token);
+            }
+        }))
+    })
+}
 
 
 module.exports={
@@ -59,5 +82,6 @@ module.exports={
     toObject,
     createJSON,
     encrypt,
-    comparePassword
+    comparePassword,
+    createJWT
 }

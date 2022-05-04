@@ -8,6 +8,7 @@ const productsRouter = require("./routes/productsRouts.js");
 const productsApiRouter = require("./routes/apis/ProductsRouts.js");
 const productCategoryRouter = require("./routes/apis/ProductCategoryRouts.js");
 const logger = require("morgan");
+const cors = require('cors');
 
 /* Settings */
 const PORT = process.env.PORT || 3003;
@@ -22,6 +23,7 @@ app.set("views", "./src/views/");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 /* Routes Asignations */
 app.use(indexRouter);
