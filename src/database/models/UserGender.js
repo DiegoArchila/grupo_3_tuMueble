@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: true,
     },
-    create_at: DataTypes.DATE,
-    update_at: DataTypes.DATE
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   };
 
   //Sets configurations the from model or table

@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { login } = require("../controllers/apis/admin.controller.js");
+//const { login } = require("../controllers/apis/admin.controller.js");
 
 const imageSaver = require("../lib/imageSaver.js");
 const adminController = require("../controllers/adminController.js");
@@ -34,7 +34,7 @@ router.post(
  */
 
 
-router
-  .get("/api/admin/user", login);
+//router
+//  .get("/api/admin/user", login);
 
 module.exports = router;

@@ -43,6 +43,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false,
     },
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
     isAdmin: {
       type: DataTypes.TINYINT,
       allowNull: false,
@@ -71,13 +75,13 @@ module.exports = (sequelize, DataTypes) => {
   
   /**
  * Function to compare PWD
- * @param {*} pwd 
+ * @param {*} pwdString 
  * @returns 
  */
-    User.prototype.validPwd= async function (pwd) {
-    return await comparePassword(pwd, this.pwd);
+    User.prototype.validPwd= function (pwdString) {
+    return comparePassword(pwdString, this.pwd);
   }
-  
+
 
   //------------------------- Relationship
   User.associate = function (models) {

@@ -59,11 +59,11 @@ const comparePassword = (pwd, pwdEncrypted) => {
  * @param {*} uid 
  * @returns Promise: Token or error
  */
-const createJWT = (uid="") => {
+const createJWT = (uid) => {
     return new Promise((resolve, reject) => {
         const payload={uid};
         jwt.sign(payload, "LlaveS3cret4SignJWt425_.098j@", {
-            algorithm: "RS512",
+            // algorithm: "RS512",
             expiresIn: "1d"
         }, ((err, token) => {
             if(err){

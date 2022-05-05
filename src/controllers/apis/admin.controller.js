@@ -1,7 +1,5 @@
 const { createJWT } = require('../../lib/formats.js');
 const db =require("../../database/models");
-const { user } = require('../adminController.js');
-const { use } = require('bcrypt/promises');
 
 const admin = {};
 
@@ -12,10 +10,11 @@ const admin = {};
  */
 admin.login=async (req,res) =>{
 
-    const users= await db.User.findAll();
+    const users= await db.User.findAll({
+        include : ["genders"]
+    });
 
-    res.json({
-        status:200,
+    res.status(200).json({
         info: users
 })
 

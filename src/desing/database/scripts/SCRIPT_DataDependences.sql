@@ -190,6 +190,7 @@ INSERT INTO
         genderId,
         imagen,
         pwd,
+        email,
         isAdmin,
         created_at, 
         updated_at
@@ -202,9 +203,22 @@ VALUES(
         1,
         '/img/avatar.jpg',
         '$2a$12$AJrgBEvyKCngvCAHDZiAseM0UBdTwSHPCe9qduCKTq5CZ8giUweVu', -- 12345, SALT 12
+        'admin@tumueble.com',
         1,
         NOW(), 
-        NOW()
+        NOW()       
+),(
+        -- LLenar datos referentes a tumueble.users
+        'Calimeña',
+        'Vamos a bailar que no pasa naaa\'\' ',
+        "1991-01-16",
+        2,
+        '/img/avatar.jpg',
+        '$2a$12$AJrgBEvyKCngvCAHDZiAseM0UBdTwSHPCe9qduCKTq5CZ8giUweVu', -- 12345, SALT 12
+        'mujer@tumueble.com',
+        0,
+        NOW(), 
+        NOW()       
 );
 
 -- Table: products
