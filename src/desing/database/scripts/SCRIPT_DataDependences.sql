@@ -268,3 +268,65 @@ VALUES ('Hollywood Mesa De Maquillaje','hermoso espejo con luz led tipo hollywoo
 /* INSERT QUERY NO: 15 */
 INSERT INTO products(productName, productDescription, sku, productTerminated, categoryId, priceGross, priceFinal, discount, unitsBuyes, unitsSelled, isActive, notes, created_at, updated_at)
 VALUES ('Espejo De Pie Con Luz','Tocador Venus Puff Incorporado','EDPCL','Madecor',5,550000,550000,0,10,4,1,NULL,NOW(),NOW());
+
+-- Table: productsTaxes
+
+/* INSERT QUERY NO: 1 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,1,NOW(),NOW());
+
+/* INSERT QUERY NO: 2 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,2,NOW(),NOW());
+
+/* INSERT QUERY NO: 3 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,3,NOW(),NOW());
+
+/* INSERT QUERY NO: 4 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,4,NOW(),NOW());
+
+/* INSERT QUERY NO: 5 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,5,NOW(),NOW());
+
+/* INSERT QUERY NO: 6 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,6,NOW(),NOW());
+
+/* INSERT QUERY NO: 7 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,7,NOW(),NOW());
+
+/* INSERT QUERY NO: 8 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,8,NOW(),NOW());
+
+/* INSERT QUERY NO: 9 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,9,NOW(),NOW());
+
+/* INSERT QUERY NO: 10 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,10,NOW(),NOW());
+
+/* INSERT QUERY NO: 11 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,11,NOW(),NOW());
+
+/* INSERT QUERY NO: 12 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,12,NOW(),NOW());
+
+/* INSERT QUERY NO: 13 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,13,NOW(),NOW());
+
+/* INSERT QUERY NO: 14 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,14,NOW(),NOW());
+
+/* INSERT QUERY NO: 15 */
+INSERT INTO productsTaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,15,NOW(),NOW());
