@@ -282,3 +282,126 @@ VALUES ('Hollywood Mesa De Maquillaje','hermoso espejo con luz led tipo hollywoo
 /* INSERT QUERY NO: 15 */
 INSERT INTO products(productName, productDescription, sku, productTerminated, categoryId, priceGross, priceFinal, discount, unitsBuyes, unitsSelled, isActive, notes, created_at, updated_at)
 VALUES ('Espejo De Pie Con Luz','Tocador Venus Puff Incorporado','EDPCL','Madecor',5,550000,550000,0,10,4,1,NULL,NOW(),NOW());
+
+-- Table: productsTaxes
+
+/* INSERT QUERY NO: 1 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,1,NOW(),NOW());
+
+/* INSERT QUERY NO: 2 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,2,NOW(),NOW());
+
+/* INSERT QUERY NO: 3 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,3,NOW(),NOW());
+
+/* INSERT QUERY NO: 4 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,4,NOW(),NOW());
+
+/* INSERT QUERY NO: 5 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,5,NOW(),NOW());
+
+/* INSERT QUERY NO: 6 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,6,NOW(),NOW());
+
+/* INSERT QUERY NO: 7 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,7,NOW(),NOW());
+
+/* INSERT QUERY NO: 8 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,8,NOW(),NOW());
+
+/* INSERT QUERY NO: 9 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,9,NOW(),NOW());
+
+/* INSERT QUERY NO: 10 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,10,NOW(),NOW());
+
+/* INSERT QUERY NO: 11 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,11,NOW(),NOW());
+
+/* INSERT QUERY NO: 12 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,12,NOW(),NOW());
+
+/* INSERT QUERY NO: 13 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,13,NOW(),NOW());
+
+/* INSERT QUERY NO: 14 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,14,NOW(),NOW());
+
+/* INSERT QUERY NO: 15 */
+INSERT INTO productstaxes(taxeId, productId, created_at, updated_at)
+VALUES (1,15,NOW(),NOW());
+
+-- Table: productsimages
+/* INSERT QUERY NO: 1 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Sofa_2P_Chester_Gris_plata.jpg',1,NOW(),NOW());
+
+/* INSERT QUERY NO: 2 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'SOFA_CAMA_DE_LINO_ARRUGADO.jpg',2,NOW(),NOW());
+
+/* INSERT QUERY NO: 3 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Sofa_Parnell_3_Puestos_Poliester_Mica.jpeg',3,NOW(),NOW());
+
+/* INSERT QUERY NO: 4 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Cama_Felder.jpg',4,NOW(),NOW());
+
+/* INSERT QUERY NO: 5 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Cama_Tapizada_Garden.jpg',5,NOW(),NOW());
+
+/* INSERT QUERY NO: 6 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Cama_Doble_Libia.jpg',6,NOW(),NOW());
+
+/* INSERT QUERY NO: 7 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Mesa_de_Comedor_Carson.jpg',7,NOW(),NOW());
+
+/* INSERT QUERY NO: 8 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Mesa_de_Comedor_Alpha_6_Puestos.jpg',8,NOW(),NOW());
+
+/* INSERT QUERY NO: 9 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Mesa_de_Comedor_Feel_4_Puestos.jpg',9,NOW(),NOW());
+
+/* INSERT QUERY NO: 10 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Sala_Lisboa_Plata_En_Tela.jpg',10,NOW(),NOW());
+
+/* INSERT QUERY NO: 11 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'combo-arte.jpg',11,NOW(),NOW());
+
+/* INSERT QUERY NO: 12 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Sala_Cama_Arte_K_Porto.png',12,NOW(),NOW());
+
+/* INSERT QUERY NO: 13 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'tocador_puff.jpg',13,NOW(),NOW());
+
+/* INSERT QUERY NO: 14 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Hollywood_Mesa.jpg',14,NOW(),NOW());
+
+/* INSERT QUERY NO: 15 */
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,NULL,'Espejo_De_Pie_Con_Luz.jpg',15,NOW(),NOW());
