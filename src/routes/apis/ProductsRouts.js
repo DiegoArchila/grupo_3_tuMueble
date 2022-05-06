@@ -10,7 +10,7 @@ const {
 const productsController = require("../../controllers/apis/ProductsController.js");
 
 //Imagen principal del producto
-let saveProductImages = imageSaver.saveImages("public/img/store/products");
+let saveProductImages = imageSaver.saveImages("public/img/products");
 
 const urlProducts = "/api/products";
 
