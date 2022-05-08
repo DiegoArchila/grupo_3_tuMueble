@@ -7,8 +7,9 @@ const adminRouter = require("./routes/adminRouts.js");
 const productsRouter = require("./routes/productsRouts.js");
 const productsApiRouter = require("./routes/apis/ProductsRouts.js");
 const productCategoryRouter = require("./routes/apis/ProductCategoryRouts.js");
+const taxesApiRouter = require("./routes/apis/TaxesRouts.js");
 const logger = require("morgan");
-const cors = require('cors');
+const cors = require("cors");
 
 /* Settings */
 const PORT = process.env.PORT || 3003;
@@ -34,6 +35,7 @@ app.use(productsRouter);
 /* Apis Routes Asignations */
 app.use(productsApiRouter);
 app.use(productCategoryRouter);
+app.use(taxesApiRouter);
 
 /* Start Server */
 app.listen(PORT, () => {
