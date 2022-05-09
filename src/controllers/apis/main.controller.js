@@ -1,4 +1,6 @@
+const { tableName } = require('sequelize/lib/model');
 const db = require('../../database/models');
+const UserEmail = require('../../database/models/UserEmail');
 const { createJWT } = require('../../lib/formats.js');
 
 const mainController = {};
@@ -17,30 +19,50 @@ mainController.login= async (req,res) => {
 
         // The user Exists?
         const user = await db.User.findOne({
-            attributes: ["email", "id", "pwd", "isAdmin"],
-            where: {
-                "email":email 
-            }
+            include: [{
+                model:db.UserEmail,
+                as: "emails",
+                where:{
+                    "email":email
+                },
+                include: [{
+                    model:db.EmailCategory,
+                    as: "category",
+                    attributes:["category"]
+                }],
+                attributes : ["email"]       
+            }],
+            attributes:["pwd","isAdmin"]
         });
 
-        // Validating credentials, and if is admin or not
+        //Validating credentials, and if is admin or not
         if(user && (user.validPwd(pwd))) {
             
             //Gernerate token JWT
             const token= await createJWT(user.id);
+            
+            //Assign Token To headers
+            res.setHeader("Auth",token);
 
             if(user.isAdmin==1){
-                return await res.json({
-                    msg:"Login exitoso, Admin Logeado",
-                    "user": user,
-                    "token": token 
-                }).status(200);
+
+                //Assign Role Admin to Headers
+                res.setHeader("Role-User","admin");
+
+                //Redirect page Home
+                return await res
+                    .status(200)
+                    .setHeader("Role-User","admin")
+                    .redirect("/api/admin/dashboard");
             }
-            return await res.json({
-                msg:"Login exitoso, usuario Logeado",
-                "user": user,
-                "token": token 
-            }).status(200);
+
+            //Assign Role User to Headers
+            res.setHeader("Role-User","user");
+
+            //Redirect page Home
+            return await res.status(200).redirect("/api/");
+            
+
         } else {
             return res.json({
                 msg:"Usuario o contraseña incorrecta"

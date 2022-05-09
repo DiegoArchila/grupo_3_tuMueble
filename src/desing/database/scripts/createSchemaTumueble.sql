@@ -26,7 +26,6 @@ CREATE TABLE IF NOT EXISTS users(
     genderId INTEGER NOT NULL,
     imagen VARCHAR(255) NULL,
     pwd VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
     isAdmin TINYINT NOT NULL DEFAULT 0,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
@@ -123,7 +122,7 @@ CREATE TABLE IF NOT EXISTS productsCategory(
 CREATE TABLE IF NOT EXISTS productsImages(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     isMain TINYINT NOT NULL DEFAULT 0,
-    imagenDescription VARCHAR(255) NOT NULL,
+    imagenDescription VARCHAR(255) NULL,
     pathImagen VARCHAR(255) NOT NULL,
     productId INTEGER NOT NULL,
     created_at TIMESTAMP NOT NULL,

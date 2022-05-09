@@ -49,12 +49,12 @@ module.exports = (sequelize, DataTypes) => {
   UserEmail.associate = function (models) {
     
     UserEmail.belongsTo(models.EmailCategory, {
-      as: "EmailCategories",
+      as: "category",
       foreignKey: "categoryId",
     });
 
     UserEmail.belongsTo(models.User, {
-      as: "emailsUser",
+      as: "userEmails",
       foreignKey: "userId",
     });
   };

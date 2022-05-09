@@ -1,4 +1,7 @@
 /* IMPORTS */
+
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const indexRouter = require("./routes/mainRouts.js");
