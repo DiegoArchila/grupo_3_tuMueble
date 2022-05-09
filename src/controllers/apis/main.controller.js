@@ -52,8 +52,7 @@ mainController.login= async (req,res) => {
                 //Redirect page Home
                 return await res
                     .status(200)
-                    .setHeader("Role-User","admin")
-                    .redirect("/api/admin/dashboard");
+                    .setHeader("Role-User","admin");
             }
 
             //Assign Role User to Headers

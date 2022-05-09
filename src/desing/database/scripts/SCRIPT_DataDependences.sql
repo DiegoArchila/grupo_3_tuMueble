@@ -365,61 +365,61 @@ VALUES (1,15,NOW(),NOW());
 
 -- Table: productsImages
 /* INSERT QUERY NO: 1 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Sofa_2P_Chester_Gris_plata.jpg',1,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Sofa_2P_Chester_Gris_plata.jpg',1,NOW(),NOW());
 
 /* INSERT QUERY NO: 2 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'SOFA_CAMA_DE_LINO_ARRUGADO.jpg',2,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','SOFA_CAMA_DE_LINO_ARRUGADO.jpg',2,NOW(),NOW());
 
 /* INSERT QUERY NO: 3 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Sofa_Parnell_3_Puestos_Poliester_Mica.jpeg',3,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Sofa_Parnell_3_Puestos_Poliester_Mica.jpeg',3,NOW(),NOW());
 
 /* INSERT QUERY NO: 4 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Cama_Felder.jpg',4,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Cama_Felder.jpg',4,NOW(),NOW());
 
 /* INSERT QUERY NO: 5 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Cama_Tapizada_Garden.jpg',5,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Cama_Tapizada_Garden.jpg',5,NOW(),NOW());
 
 /* INSERT QUERY NO: 6 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Cama_Doble_Libia.jpg',6,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Cama_Doble_Libia.jpg',6,NOW(),NOW());
 
 /* INSERT QUERY NO: 7 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Mesa_de_Comedor_Carson.jpg',7,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Mesa_de_Comedor_Carson.jpg',7,NOW(),NOW());
 
 /* INSERT QUERY NO: 8 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Mesa_de_Comedor_Alpha_6_Puestos.jpg',8,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Mesa_de_Comedor_Alpha_6_Puestos.jpg',8,NOW(),NOW());
 
 /* INSERT QUERY NO: 9 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Mesa_de_Comedor_Feel_4_Puestos.jpg',9,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Mesa_de_Comedor_Feel_4_Puestos.jpg',9,NOW(),NOW());
 
 /* INSERT QUERY NO: 10 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Sala_Lisboa_Plata_En_Tela.jpg',10,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Sala_Lisboa_Plata_En_Tela.jpg',10,NOW(),NOW());
 
 /* INSERT QUERY NO: 11 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'combo-arte.jpg',11,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','combo-arte.jpg',11,NOW(),NOW());
 
 /* INSERT QUERY NO: 12 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Sala_Cama_Arte_K_Porto.png',12,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Sala_Cama_Arte_K_Porto.png',12,NOW(),NOW());
 
 /* INSERT QUERY NO: 13 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'tocador_puff.jpg',13,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','tocador_puff.jpg',13,NOW(),NOW());
 
 /* INSERT QUERY NO: 14 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Hollywood_Mesa.jpg',14,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Hollywood_Mesa.jpg',14,NOW(),NOW());
 
 /* INSERT QUERY NO: 15 */
-INSERT INTO productsImages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
-VALUES (1,NULL,'Espejo_De_Pie_Con_Luz.jpg',15,NOW(),NOW());
+INSERT INTO productsimages(isMain, imagenDescription, pathImagen, productId, created_at, updated_at)
+VALUES (1,'','Espejo_De_Pie_Con_Luz.jpg',15,NOW(),NOW());

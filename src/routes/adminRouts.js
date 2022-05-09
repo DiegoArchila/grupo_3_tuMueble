@@ -7,9 +7,8 @@ const router = express.Router();
 const imageSaver = require("../lib/imageSaver.js");
 const adminController = require("../controllers/adminController.js");
 
-
 //Imagen principal del producto
-let saveProductImages = imageSaver.saveImages("public/img/store/products");
+let saveProductImages = imageSaver.saveImages("public/img/products");
 
 router.get("/admin", adminController.admin);
 
@@ -33,6 +32,7 @@ router.post(
  * -------------------- API
  */
 
+router.get("/api/admin/user");
 
 //router
 //  .get("/api/admin/user", login);
