@@ -16,7 +16,7 @@ let findAll = async (params = null) => {
   );
   let allProductImages = [];
   try {
-    allProductImages = await db.ProductImages.findAll();
+    allProductImages = await db.ProductImages.findAll({ ...params });
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -57,6 +57,43 @@ let findByPk = async (id, params = null) => {
   let productImage = {};
   try {
     productImage = await db.ProductImages.findByPk(id);
+  } catch (error) {
+    Log.consoleLogs(Log.LogsTypes.ERR, error);
+    throw error;
+  }
+
+  if (productImage.length > 0) {
+    Log.consoleLogs(
+      Log.LogsTypes.SUCCESS,
+      `productImage has been found: ${productImage}`
+    );
+  } else {
+    Log.consoleLogs(Log.LogsTypes.WARM, `productImage not found`);
+  }
+
+  return productImage;
+};
+
+/**
+ * Find one productImage by id
+ *
+ * @param {number} id    -Id of the productImage
+ * @param {{}} params -Params with conditions
+ * @return {*} The productImage by id
+ */
+let findOne = async (params) => {
+  if (!params) {
+    Log.consoleLogs(Log.LogsTypes.ERR, "The params is null");
+    return null;
+  }
+  Log.consoleLogs(
+    Log.LogsTypes.INFO,
+    `Request for get one productImage by ` +
+      (params ? ` params : ${JSON.stringify(params)}` : "")
+  );
+  let productImage = {};
+  try {
+    productImage = await db.ProductImages.findOne(params);
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
@@ -160,6 +197,7 @@ const update = async (productImages, params = null) => {
 module.exports = {
   findAll,
   findByPk,
+  findOne,
   deleteWhere,
   create,
   update,

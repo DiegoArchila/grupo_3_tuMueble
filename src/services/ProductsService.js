@@ -2,29 +2,63 @@ const productsRepository = require("../repositories/ProductsRepository.js");
 const productImagesRepository = require("../repositories/ProductImagesRepository.js");
 const productCategoryRepository = require("../repositories/ProductCategoryRepository.js");
 const productTaxesRepository = require("../repositories/ProductTaxesRepository.js");
+const functions = require("../lib/functions.js");
 
 /**
  * Update a product
  *
  * @param {*} productId -Id of the product to update
  * @param {*} producto  -Data for update
+ * @param {*} images -Product images
  * @return {*} -Product updated
  */
-const updateProduct = async (productId, producto) => {
+const updateProduct = async (productId, producto, images) => {
   //product data organized
 
   let productUpdate = {};
-  let productTax = {};
 
-  productUpdate = await productsRepository.update(productId, producto);
-  /*await db.ProductImages.update({          
-          pathImagen: file.filename,          
-        },{where:{productId:productId,isMain:true}});*/
+  productUpdate = await productsRepository.update(producto, {
+    where: { id: productId },
+  });
 
-  productTax = await productTaxesRepository.updateProductTaxesByProductId(
-    Number(producto.taxesId),
-    productId
-  );
+  if (images && images.length > 0) {
+    let imageUpdate = null;
+    let image = null;
+    for (let i = 0; i < images.length; i++) {
+      image = await productImagesRepository.findOne({
+        where: { productId, isMain: 1 },
+      });
+      console.log(image);
+      imageUpdate = await productImagesRepository.update(
+        {
+          isMain: i == 0 ? 1 : 0,
+          pathImagen: `${images[i][0]}.png`,
+          productId,
+        },
+        { where: { id: image.id } }
+      );
+      if (imageUpdate) {
+        functions.saveBase64ToImage(images[i][1], images[i][0]);
+      }
+    }
+  }
+
+  if (producto.taxes && producto.taxes.length > 0) {
+    let productTaxes = await productTaxesRepository.findAll({
+      where: { productId },
+    });
+    if (productTaxes && productTaxes > 0) {
+      await productTaxesRepository.deleteWhere({
+        where: { productId },
+      });
+    }
+    for (const tax of producto.taxes) {
+      await productTaxesRepository.create({
+        taxeId: Number(tax.id),
+        productId: productId,
+      });
+    }
+  }
 
   return productUpdate;
 };
@@ -58,23 +92,36 @@ const deleteProduct = async (productId) => {
  * Create a new product
  *
  * @param {*} producto  -Product to create
- * @param {*} fileImage -Main image
+ * @param {*} images -images of the product [name,base64]
  * @return {*}  -Product create
  */
-const createProduct = async (producto, fileImage) => {
+const createProduct = async (producto, images) => {
   let newProducto = {};
 
   newProducto = await productsRepository.create(producto);
-  await productImagesRepository.create({
-    isMain: 1,
-    pathImagen: fileImage.filename,
-    productId: newProducto.id,
-  });
 
-  await productTaxesRepository.create({
-    taxeId: Number(producto.taxesId),
-    productId: newProducto.id,
-  });
+  if (images.length > 0) {
+    let imageNew = null;
+    for (let i = 0; i < images.length; i++) {
+      imageNew = await productImagesRepository.create({
+        isMain: i == 0 ? 1 : 0,
+        pathImagen: `${images[i][0]}.png`,
+        productId: newProducto.id,
+      });
+      if (imageNew) {
+        functions.saveBase64ToImage(images[i][1], images[i][0]);
+      }
+    }
+  }
+
+  if (producto.taxes) {
+    for (const tax of producto.taxes) {
+      await productTaxesRepository.create({
+        taxeId: Number(tax.id),
+        productId: newProducto.id,
+      });
+    }
+  }
 
   return newProducto;
 };

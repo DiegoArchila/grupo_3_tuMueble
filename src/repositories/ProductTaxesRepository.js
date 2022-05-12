@@ -79,15 +79,15 @@ let findByPk = async (id, params = null) => {
  * @param {{}} [params=null] -Params like where conditions, order, etc.
  * @return {*}
  */
-const update = async (productTax, params = null) => {
+const update = async (taxId, params = null) => {
   Log.consoleLogs(
     Log.LogsTypes.INFO,
-    `Request for update one ProductTaxes` +
+    `Request for update one ProductTaxes id: ${taxId}` +
       (params ? ` by: ${JSON.stringify(params)}` : "")
   );
   let productTaxUpdate = {};
   try {
-    productTaxUpdate = await db.ProductTaxes.update(productTax, ...params);
+    productTaxUpdate = await db.ProductTaxes.update(taxId, ...params);
   } catch (error) {
     Log.consoleLogs(Log.LogsTypes.ERR, error);
     throw error;
