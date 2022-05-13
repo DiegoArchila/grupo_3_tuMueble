@@ -171,7 +171,7 @@ const updateProduct = async (req, res) => {
  * @return {*} Status
  */
 const deleteProduct = async (req, res) => {
-  let productId = req.params.id;
+  let productId = Number(req.params.id);
   let response = [];
   let deleteSuccess = false;
 
