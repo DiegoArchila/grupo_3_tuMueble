@@ -75,7 +75,6 @@ router.post(`${urlProducts}/delete/:id`, productsController.deleteProduct);
 router.post(
   `${urlProducts}/create`,
   validacionesEditProduct,
-  saveProductImages.single("imageMain"),
   productsController.createProduct
 );
 

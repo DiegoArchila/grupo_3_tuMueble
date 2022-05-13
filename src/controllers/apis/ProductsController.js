@@ -124,6 +124,7 @@ const updateProduct = async (req, res) => {
   let productUpdate = {};
   let body = req.body;
   let producto = {};
+  let images = [];
 
   if (!productId) {
     return res
@@ -132,20 +133,30 @@ const updateProduct = async (req, res) => {
   }
 
   producto = {
+    id: productId,
     productName: body.productName,
     productDescription: body.productDescription,
     productTerminated: body.productTerminated,
     sku: body.sku,
-    categoryId: Number(body.categoryId),
+    categoryId: Number(body.category.id),
     unitsBuyes: Number(body.unitsBuyes),
+    unitsSelled: 0,
     isActive: body.isActive,
     priceGross: Number(body.priceGross),
-    priceFinal: Number(body.priceFinal),
+    priceFinal: calculoPrecioFinal(body),
     discount: Number(body.discount),
-    taxesId: Number(body.taxesId),
+    taxes: body.taxes,
   };
 
-  productUpdate = await productsService.updateProduct(productId, producto);
+  if (body.mainImage) {
+    images.push([`${Date.now()}`, body.mainImage]);
+  }
+
+  productUpdate = await productsService.updateProduct(
+    productId,
+    producto,
+    body.mainImage ? images : null
+  );
 
   response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.OK, productUpdate);
 
@@ -160,7 +171,7 @@ const updateProduct = async (req, res) => {
  * @return {*} Status
  */
 const deleteProduct = async (req, res) => {
-  let productId = req.params.id;
+  let productId = Number(req.params.id);
   let response = [];
   let deleteSuccess = false;
 
@@ -190,16 +201,10 @@ const deleteProduct = async (req, res) => {
  */
 const createProduct = async (req, res, next) => {
   let body = req.body;
-  let file = req.file;
   let response = [];
   let producto = {};
   let newProducto = {};
-
-  if (!file) {
-    const error = new Error("Por favor seleccione un archivo");
-    error.httpStatusCode = 400;
-    return next(error);
-  }
+  let images = [];
 
   if (!body) {
     return res
@@ -212,17 +217,21 @@ const createProduct = async (req, res, next) => {
     productDescription: body.productDescription,
     productTerminated: body.productTerminated,
     sku: body.sku,
-    categoryId: Number(body.categoryId),
+    categoryId: Number(body.category.id),
     unitsBuyes: Number(body.unitsBuyes),
     unitsSelled: 0,
     isActive: body.isActive,
     priceGross: Number(body.priceGross),
-    priceFinal: Number(body.priceFinal),
+    priceFinal: calculoPrecioFinal(body),
     discount: Number(body.discount),
-    taxesId: Number(body.taxesId),
+    taxes: body.taxes,
   };
 
-  newProducto = await productsService.createProduct(producto, file);
+  if (body.mainImage) {
+    images.push([`${Date.now()}`, body.mainImage]);
+  }
+
+  newProducto = await productsService.createProduct(producto, images);
 
   if (!newProducto) {
     response = ApiFormats.ApiFormat(ApiFormats.ApiStatus.BAD_REQUEST);
@@ -231,6 +240,23 @@ const createProduct = async (req, res, next) => {
   }
 
   return res.status(response.status).json(response);
+};
+
+const calculoPrecioFinal = (product) => {
+  let taxesSum = 0;
+  if (product.taxes && product.taxes.length > 0) {
+    for (let tax of product.taxes) {
+      taxesSum += Number(tax.taxeValue);
+    }
+  }
+  let priceFinal =
+    Math.round(
+      Number(product.priceGross) *
+        (1 - Number(product.discount) / 100) *
+        (1 + taxesSum / 100) *
+        100
+    ) / 100;
+  return priceFinal;
 };
 
 module.exports = {
