@@ -5,7 +5,6 @@ const settingGeneral = require("../databases/settingGeneralSite.json");
 const index = require("../databases/index.json");
 const { minibar } =require("../lib/complements.js");
 const { validationResult } = require("express-validator");
-const db = require('../database/models');
 
 const validationsCreateUser=[
     check("firstName")
@@ -118,11 +117,13 @@ const checkLogin = [
  * @param {import("express").Response} res 
  * @param {import("express").NextFunction} next 
  */
-const validateCheckLogin = (req, res, next) => {
+const validateCheckLogin = async (req, res, next) => {
+
+    console.log("Body Middleware", req.body);
     
     const errors = validationResult(req);
     if( !errors.isEmpty() ){
-        return res.status(400).json(errors);
+        return await res.status(400).json(errors);
     }
 
     next();

@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { login } = require('../controllers/apis/main.controller.js');
+const { login, createUser } = require('../controllers/apis/main.controller.js');
 
 const { 
     validationsCreateUser, 
@@ -28,3 +28,7 @@ module.exports = router;
 // login
 router
     .post("/api/login", checkLogin, validateCheckLogin, login);
+
+// Create User
+router
+    .post("/api/user/create",createUser);

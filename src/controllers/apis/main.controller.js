@@ -18,54 +18,48 @@ mainController.login= async (req,res) => {
     try {
 
         // The user Exists?
-        const user = await db.User.findOne({
+        let user = await db.User.findOne({
             include: [{
                 model:db.UserEmail,
                 as: "emails",
                 where:{
                     "email":email
                 },
-                include: [{
-                    model:db.EmailCategory,
-                    as: "category",
-                    attributes:["category"]
-                }],
+                // include: [{
+                //     model:db.EmailCategory,
+                //     as: "category",
+                //     attributes:["category"]
+                // }],
                 attributes : ["email"]       
             }],
-            attributes:["pwd","isAdmin"]
+            attributes:["pwd","isAdmin","firstname","imagen"]
         });
+
+        console.log("User Emails")
 
         //Validating credentials, and if is admin or not
         if(user && (user.validPwd(pwd))) {
-            
+
             //Gernerate token JWT
             const token= await createJWT(user.id);
+
+            //Assing information from the user
+            const userJSON={
+                "name":user.firstname,
+                "imagen":user.imagen,
+                "isAdmin": user.isAdmin,
+                "auth":token
+            };
             
             //Assign Token To headers
             res.setHeader("Auth",token);
 
-            if(user.isAdmin==1){
-
-                //Assign Role Admin to Headers
-                res.setHeader("Role-User","admin");
-
-                //Redirect page Home
-                return await res
-                    .status(200)
-                    .setHeader("Role-User","admin");
-            }
-
-            //Assign Role User to Headers
-            res.setHeader("Role-User","user");
-
-            //Redirect page Home
-            return await res.status(200).redirect("/api/");
-            
+            return res.status(200).json(userJSON);
 
         } else {
-            return res.json({
-                msg:"Usuario o contraseña incorrecta"
-            }).status(400);
+            return res.status(400).json({
+                errors:"Usuario o contraseña incorrecta"
+            });
         }
     
     } catch (error) {
@@ -77,5 +71,18 @@ mainController.login= async (req,res) => {
 
 }
 
+/**
+ * Create user
+ * @param {import("express").Request} req 
+ * @param {import("express").Response} res 
+ * @returns JSON with Response HTTP[S]
+ */
+mainController.createUser= async (req, res) =>{
+    
+    console.log("Body http",req.body);
+    res.json({
+        msg:"Llego tu cabecera",
+    }).status(200)
+}
 
 module.exports=mainController;
