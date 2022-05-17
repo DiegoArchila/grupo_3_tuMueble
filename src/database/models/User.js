@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
-    firstname: {
+    firstName: {
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    lastname: {
+    lastName: {
       type: DataTypes.STRING(128),
       allowNull: false,
     },
@@ -84,7 +84,7 @@ module.exports = (sequelize, DataTypes) => {
     
     User.hasMany(models.UserPhone, {
       as: "phones",
-      foreignKey: "genderId",
+      foreignKey: "userId",
     });
 
     User.hasMany(models.UserEmail, {

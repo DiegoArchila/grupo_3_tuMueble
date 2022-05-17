@@ -1,7 +1,6 @@
-const { tableName } = require('sequelize/lib/model');
 const db = require('../../database/models');
-const UserEmail = require('../../database/models/UserEmail');
 const { createJWT } = require('../../lib/formats.js');
+const { createUser } = require("../../services/users.services.js");
 
 const mainController = {};
 
@@ -32,7 +31,7 @@ mainController.login= async (req,res) => {
                 // }],
                 attributes : ["email"]       
             }],
-            attributes:["pwd","isAdmin","firstname","imagen"]
+            attributes:["pwd","isAdmin","firstName","imagen"]
         });
 
         console.log("User Emails")
@@ -45,7 +44,7 @@ mainController.login= async (req,res) => {
 
             //Assing information from the user
             const userJSON={
-                "name":user.firstname,
+                "name":user.firstName,
                 "imagen":user.imagen,
                 "isAdmin": user.isAdmin,
                 "auth":token
@@ -78,11 +77,11 @@ mainController.login= async (req,res) => {
  * @returns JSON with Response HTTP[S]
  */
 mainController.createUser= async (req, res) =>{
-    
-    console.log("Body http",req.body);
-    res.json({
-        msg:"Llego tu cabecera",
-    }).status(200)
+
+    const isOk = await createUser(req.body);
+    return res.status(201).json({
+        response : await isOk,
+    })
 }
 
 module.exports=mainController;

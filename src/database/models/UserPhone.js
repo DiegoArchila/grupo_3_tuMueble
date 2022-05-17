@@ -17,10 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
-    number: {
+    phone: {
       type: DataTypes.STRING(50),
-      allowNull: false,
-      unique: true,
+      allowNull: false
     },
     notes: {
       type: DataTypes.STRING(250),
@@ -31,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     categoryId: {
       type: DataTypes.INTEGER,
+      allowNull: false
     },
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE

@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { resolve } = require("path");
 const { rejects } = require("assert");
 const jwt = require("jsonwebtoken");
+const multer = require('multer');
 
 /**Format the numbers to format currency,
  * this to COP=Colombian PESO Money
@@ -22,7 +23,6 @@ const toCOP= new Intl.NumberFormat("es-CO", {
  * @returns A Object at format Object
  */
 const toObject = (json) =>{
-    console.log("ToObject", json, "\n ruta actual:", path.resolve(__dirname,json));
     return JSON.parse( fs.readFileSync(path.resolve(__dirname,json), "utf-8") );
 }
 
@@ -53,6 +53,23 @@ const encrypt = (pwd) => {
 const comparePassword = (pwd, pwdEncrypted) => {
     return bcrypt.compareSync(pwd,pwdEncrypted);
 }
+
+/**
+ * Settings of multer
+ */
+ const optStorage = multer.diskStorage({
+    destination: function(req, file, cllbk) {
+        cllbk(null, path.resolve(__dirname, "../../public/img/profile"));
+    },
+    filename: function(req, file, cllbk) {
+        cllbk(null, `${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+
+/**
+ * Function to uploadFile
+ */
+const uploadFile=multer({ storage:optStorage });
 
 /**
  * Generate Token with jsonwebtoken
@@ -86,5 +103,6 @@ module.exports={
     createJSON,
     encrypt,
     comparePassword,
-    createJWT
+    createJWT,
+    uploadFile
 }

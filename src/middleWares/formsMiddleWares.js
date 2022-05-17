@@ -5,6 +5,8 @@ const settingGeneral = require("../databases/settingGeneralSite.json");
 const index = require("../databases/index.json");
 const { minibar } =require("../lib/complements.js");
 const { validationResult } = require("express-validator");
+const { uploadFile } = require("../lib/formats.js");
+const { findEmail } = require("../services/users.services.js")
 
 const validationsCreateUser=[
     check("firstName")
@@ -29,9 +31,12 @@ const validationsCreateUser=[
         
     check("email")
         .isEmail().withMessage("Debes ingresar un email valido en \"Email\" ")
-        .custom(val => {
-            console.log(val);
-            if (!findByEmail(val)){
+        .custom( async val => {
+
+            console.log("Parametro Email CHECK", val);
+            console.log("REsultado validacionMiddleware", (await findEmail(val)))
+
+            if (await findEmail(val)){
                 return true;
             } else {
                 throw new Error("El email \'"+val+"\' ya se encuentra en uso");
@@ -134,5 +139,6 @@ module.exports={
     validationsCreateUser,
     validateErrorscreateUser,
     checkLogin,
-    validateCheckLogin
+    validateCheckLogin,
+    uploadFile
 }
