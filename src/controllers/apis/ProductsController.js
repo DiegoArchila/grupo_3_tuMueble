@@ -51,6 +51,11 @@ const findAll = async (req, res) => {
       where: {
         [Op.and]: data,
       },
+      limit:
+        queryParams.limit && Number(queryParams.limit) >= 0
+          ? Number(queryParams.limit)
+          : null,
+      order: queryParams.order ? [queryParams.order.split(",")] : null,
     };
   }
 
