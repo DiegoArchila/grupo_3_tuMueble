@@ -33,9 +33,6 @@ const validationsCreateUser=[
         .isEmail().withMessage("Debes ingresar un email valido en \"Email\" ")
         .custom( async val => {
 
-            console.log("Parametro Email CHECK", val);
-            console.log("REsultado validacionMiddleware", (await findEmail(val)))
-
             if (await findEmail(val)){
                 return true;
             } else {

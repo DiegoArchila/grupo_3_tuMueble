@@ -78,10 +78,17 @@ mainController.login= async (req,res) => {
  */
 mainController.createUser= async (req, res) =>{
 
-    const isOk = await createUser(req.body);
-    return res.status(201).json({
-        response : await isOk,
-    })
+    const isOk = await createUser(req.body, req.file);
+
+    if(isOk!=undefined){
+        return res.status(201).json({
+            created : isOk._options.isNewRecord
+        });
+    }else{
+        return res.status(400).json({
+            created : false
+        });
+    }
 }
 
 module.exports=mainController;
